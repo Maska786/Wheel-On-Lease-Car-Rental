@@ -1,0 +1,27 @@
+{{> header}}
+
+<div class="container mt-5 pt-5">
+  <h2 class="text-center mb-4">My Bookings</h2>
+
+  {{#if bookings.length}}
+    <div class="row">
+      {{#each bookings}}
+      <div class="col-md-6 mb-4">
+        <div class="card shadow-lg p-3">
+          <h5 class="fw-bold">{{this.car.carName}}</h5>
+          <img src="{{this.car.image}}" alt="{{this.car.carAltText}}" class="img-fluid rounded mb-2">
+          <p><strong>Pickup:</strong> {{this.pickupDate}}</p>
+          <p><strong>Return:</strong> {{this.returnDate}}</p>
+          <p><strong>Status:</strong> 
+            <span class="badge bg-{{#if (eq this.status "Confirmed")}}success{{else if (eq this.status "Cancelled")}}danger{{else}}warning{{/if}}">
+              {{this.status}}
+            </span>
+          </p>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  {{else}}
+    <p class="text-center">No bookings yet.</p>
+  {{/if}}
+</div>

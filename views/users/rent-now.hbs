@@ -1,0 +1,209 @@
+<div style="background-color: var(--bg-dark); min-height: 100vh; padding-top: 3rem; padding-bottom: 5rem; color: var(--text-main);">
+<h2 class="text-center section-title mb-5">Book <span style="color: var(--gold-accent);">{{car.carName}}</span></h2>
+<div class="container">
+    <div class="row">
+        <!-- LHS Car details -->
+        <div class="col-md-5 mb-4">
+            <div class="glass-card shadow-lg p-3">
+                <img src="{{car.image}}" alt="{{car.altText}}" class="img-fluid rounded-3 mb-4 object-fit-cover w-100">
+                <h4 class="fw-bold text-center" style="font-family: 'Outfit', sans-serif; color: var(--gold-accent);">{{car.carName}}</h4>
+                <h6 class="text-center text-light opacity-75 mb-3">{{car.carCategory}}</h6>
+                <p class="text-center px-2">{{car.carDescription}}</p>
+                <div class="divider"></div>
+                    <p class="mb-1">
+                        <strong>Daily Price:</strong> AED {{car.priceDaily}}
+                        <span id="dailyPrice" data-daily="{{car.priceDaily}}" hidden></span>
+                    </p>
+                    <p class="mb-1">
+                        <strong>Weekly Price:</strong> AED {{car.priceWeekly}}
+                        <span id="weeklyPrice" data-weekly="{{car.priceWeekly}}" hidden></span>
+                    </p>
+                    <p class="mb-1">
+                        <strong>Monthly Price:</strong> AED {{car.priceMonthly}}
+                        <span id="monthlyPrice" data-monthly="{{car.priceMonthly}}" hidden></span>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- RHS Booking form -->
+        <div class="col-md-7 booking-card">
+            <form action="/booking/preview" method="POST" enctype="multipart/form-data" id="bookingForm" class="glass-card shadow-lg p-4 p-md-5">
+                <!-- Customer Info -->
+                <h4 class="mb-4 fw-bold" style="font-family: 'Outfit', sans-serif; color: var(--gold-accent);">Your Story Starts Here</h4>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="firstName" class="form-label form-label-premium">First Name</label>
+                        <input type="text" name="firstName" id="firstName" class="form-control form-control-premium" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="lastName" class="form-label form-label-premium">Last Name</label>
+                        <input type="text" name="lastName" id="lastName" class="form-control form-control-premium" required>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label form-label-premium">Email</label>
+                    <input type="email" name="email" id="email" class="form-control form-control-premium" required>
+                </div>
+
+                <!-- Full Country Dropdown -->
+                <div class="mb-3">
+                    <label for="country" class="form-label form-label-premium">Residence Country</label>
+                    <select name="country" id="country" class="form-select form-control-premium" required style="background-color: #1a1a1e;">
+                        <option value="">-- Select Country --</option>
+                        <option value="United Arab Emirates">United Arab Emirates</option>
+                        <option value="India">India</option>
+                        <option value="Pakistan">Pakistan</option>
+                        <option value="United Kingdom">United Kingdom</option>
+                        <option value="United States">United States</option>
+                        <!-- add rest of ISO countries if needed -->
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="emirate" class="form-label form-label-premium">Rental In</label>
+                    <select name="emirate" id="emirate" class="form-select form-control-premium" required style="background-color: #1a1a1e;">
+                        <option value="">-- Select Emirate --</option>
+                        <option value="Dubai">Dubai</option>
+                        <option value="Abu Dhabi">Abu Dhabi</option>
+                        <option value="Sharjah">Sharjah</option>
+                        <option value="Ajman">Ajman</option>
+                        <option value="Fujairah">Fujairah</option>
+                        <option value="Ras Al Khaimah">Ras Al Khaimah</option>
+                        <option value="Umm Al Quwain">Umm Al Quwain</option>
+                    </select>
+                </div>
+
+                <!-- Phone input -->
+                <div class="mb-3">
+                    <label for="phone" class="form-label form-label-premium">Phone Number</label>
+                    <input type="tel" id="phone" class="form-control form-control-premium w-100" required>
+                    <input type="hidden" name="phone" id="fullPhone">
+                </div>
+
+                <!-- File Uploads -->
+                <div class="mb-3">
+                    <label for="drivingLicense" class="form-label form-label-premium">Upload Driving License</label>
+                    <input type="file" name="drivingLicense" id="drivingLicense" class="form-control form-control-premium"
+                        accept="image/*,.pdf" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="idDocument" class="form-label form-label-premium">Upload EID / Passport</label>
+                    <input type="file" name="idDocument" id="idDocument" class="form-control form-control-premium" accept="image/*,.pdf"
+                        required>
+                </div>
+
+                <!-- Ride Dates -->
+                <h4 class="mb-4 mt-5 fw-bold" style="font-family: 'Outfit', sans-serif; color: var(--gold-accent);">Ride Details</h4>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="pickupDate" class="form-label form-label-premium">Booking Date</label>
+                        <input type="date" name="pickupDate" id="pickupDate" class="form-control form-control-premium" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="returnDate" class="form-label form-label-premium">Return Date</label>
+                        <input type="date" name="returnDate" id="returnDate" class="form-control form-control-premium" required>
+                    </div>
+                </div>
+
+                <!-- Pickup / Delivery -->
+                <h4 class="mb-4 mt-5 fw-bold" style="font-family: 'Outfit', sans-serif; color: var(--gold-accent);">Choose Your Pickup Method</h4>
+                <div class="row g-3 mb-3">
+                    <!-- Self Pickup -->
+                    <div class="col-md-6">
+                        <div class="glass-card h-100 option-card selected" id="selfPickupCard" style="cursor:pointer;">
+                            <div class="card-body text-center p-4">
+                                <input class="form-check-input d-none" type="radio" name="pickupOption" id="selfPickup"
+                                    value="self" checked>
+                                <i class="bi bi-person-walking fs-2 mb-2" style="color: var(--gold-accent);"></i>
+                                <label for="selfPickup" class="fw-bold d-block text-white">Self Pickup</label>
+                                <p class="small text-light opacity-75">Collect your car directly from our location.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Delivery -->
+                    <div class="col-md-6">
+                        <div class="glass-card h-100 option-card" id="deliveryCard" style="cursor:pointer;">
+                            <div class="card-body text-center p-4">
+                                <input class="form-check-input d-none" type="radio" name="pickupOption"
+                                    id="deliveryOption" value="delivery">
+                                <i class="bi bi-truck fs-2 mb-2" style="color: var(--gold-accent);"></i>
+                                <label for="deliveryOption" class="fw-bold d-block text-white">Door Delivery</label>
+                                <p class="small text-light opacity-75">We'll bring the car to your door step.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Self Pickup -->
+                <div id="selfPickupSection" class="d-none mt-3">
+                    <div class="glass-card p-4 card-body mb-3">
+                        <p class="fw-bold text-center text-white">Our Location</p>
+                        <div class="ratio ratio-16x9 mb-2 rounded-3 overflow-hidden">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3610.178653925442!2d55.27209381500958!3d25.19720188389626!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f43348a67e24b%3A0xfe4662428267468b!2sBurj%20Khalifa!5e0!3m2!1sen!2sae!4v1661858097951!5m2!1sen!2sae"
+                                style="border:0;" allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                        <a href="https://maps.app.goo.gl/5Ymn6NXERpXuuFkS8" target="_blank" rel="noopener noreferrer"
+                            class="btn-premium w-100 text-center text-decoration-none mt-2">
+                            Open in Google Maps
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Delivery -->
+                <div id="deliverySection" class="d-none mt-3">
+                    <h5 class="mb-3 text-white">Delivery & Return Details</h5>
+                    <div class="glass-card p-4 card-body">
+                        <!-- Delivery -->
+                        <div class="mb-3">
+                            <label for="deliveryLocation" class="form-label form-label-premium">Delivery Location</label>
+                            <input type="text" name="deliveryLocation" id="deliveryLocation" class="form-control form-control-premium"
+                                placeholder="Enter delivery location">
+                            <input type="hidden" name="deliveryLat" id="deliveryLat">
+                            <input type="hidden" name="deliveryLng" id="deliveryLng">
+                            <div id="deliveryMap" class="map-preview rounded-3 mt-2 border border-secondary" style="height: 200px;"></div>
+                        </div>
+                        <!-- Return -->
+                        <div class="mb-3">
+                            <label for="dropLocation" class="form-label form-label-premium">Return Location</label>
+                            <input type="text" name="dropLocation" id="dropLocation" class="form-control form-control-premium"
+                                placeholder="Enter return location">
+                            <input type="hidden" name="dropLat" id="dropLat">
+                            <input type="hidden" name="dropLng" id="dropLng">
+                            <div id="dropMap" class="map-preview rounded-3 mt-2 border border-secondary" style="height: 200px;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="divider my-4"></div>
+                <!-- Price -->
+                <div class="mb-4 p-4 rounded-3" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);">
+                    <p class="d-flex justify-content-between mb-2"><strong class="text-light opacity-75">Subtotal:</strong> <span>AED <span id="subtotal">0</span></span></p>
+                    <p class="d-flex justify-content-between mb-2"><strong class="text-light opacity-75">VAT (5%):</strong> <span>AED <span id="vat">0</span></span></p>
+                    <div class="divider my-2" style="background: rgba(255,255,255,0.1);"></div>
+                    <p class="d-flex justify-content-between mb-0 fs-5">
+                       <strong style="color: var(--gold-accent);">Total:</strong> 
+                       <strong style="color: var(--gold-accent);">AED <span id="total">0</span></strong>
+                    </p>
+                </div>
+                <!-- Stripe Pay Button -->
+                <button id="checkout-button" class="btn-premium-filled w-100 fw-bolder mb-3 fs-5 py-3">Rent Now & Pay</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+
+<link rel="stylesheet" href="/stylesheets/rent-now.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.2.1/css/intlTelInput.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.2.1/js/intlTelInput.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initAutocomplete" async
+    defer></script>
+<script src="/js/booking-calculator.js"></script>

@@ -1,0 +1,74 @@
+<section>
+  <div class="container-fluid">
+    <form action="/admin/edit-product/{{product._id}}" method="POST" enctype="multipart/form-data">
+      <div class="row justify-content-center pt-5 mb-4">
+        <div class="col-md-4 col-12 text-center">
+          <h1 class="border border-2 border-white p-2">Edit Car</h1>
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-md-6 col-12">
+          <!-- Car Name -->
+          <div class="mb-3">
+            <label for="carName" class="form-label">Car Name</label>
+            <input type="text" class="form-control" id="carName" name="carName" value="{{product.carName}}" required>
+          </div>
+
+          <!-- Car Image -->
+          <div class="mb-3">
+            <label for="carImage" class="form-label">New Car Image (Optional)</label>
+            <img src="{{product.image}}" alt="{{product.altText}}" class="img-thumbnail mb-2" style="max-width: 150px;">
+            <input class="form-control" type="file" id="carImage" name="CarImage" accept="image/*">
+          </div>
+
+          <!-- Alt Text -->
+          <div class="mb-3">
+            <label for="altText" class="form-label">Image Alt Text</label>
+            <input type="text" class="form-control" id="altText" name="altText" value="{{product.altText}}">
+          </div>
+
+          <!-- Car Description -->
+          <div class="mb-3">
+            <label for="carDescription" class="form-label">Description</label>
+            <textarea class="form-control" id="carDescription" name="carDescription" rows="3" required>{{product.carDescription}}</textarea>
+          </div>
+
+          <!-- Price Daily -->
+          <div class="mb-3">
+            <label for="priceDaily" class="form-label">Price (Daily)</label>
+            <input type="number" class="form-control" id="priceDaily" name="priceDaily" step="0.01" value="{{product.priceDaily}}" required>
+          </div>
+
+          <!-- Price Weekly -->
+          <div class="mb-3">
+            <label for="priceWeekly" class="form-label">Price (Weekly)</label>
+            <input type="number" class="form-control" id="priceWeekly" name="priceWeekly" step="0.01" value="{{product.priceWeekly}}" required>
+          </div>
+
+          <!-- Price Monthly -->
+          <div class="mb-3">
+            <label for="priceMonthly" class="form-label">Price (Monthly)</label>
+            <input type="number" class="form-control" id="priceMonthly" name="priceMonthly" step="0.01" value="{{product.priceMonthly}}" required>
+          </div>
+
+          <!-- Category -->
+          <div class="mb-4">
+            <label for="carCategory" class="form-label">Category</label>
+            <select class="form-select" id="carCategory" name="carCategory" required>
+              {{#select product.carCategory}}
+                <option value="SUV">SUV</option>
+                <option value="Sedan">Sedan</option>
+              {{/select}}
+            </select>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="d-grid pb-5">
+            <button type="submit" class="btn btn-warning">Update Car</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>

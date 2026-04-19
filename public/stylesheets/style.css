@@ -1,0 +1,312 @@
+:root {
+  --bg-dark: #0a0a0c;
+  --bg-card: rgba(25, 25, 30, 0.6);
+  --gold-accent: #d4af37;
+  --gold-glow: rgba(212, 175, 55, 0.4);
+  --text-main: #f5f5f5;
+  --text-muted: #a0a0a0;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+header {
+  background-color: rgba(10, 10, 12, 0.9);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.navbar-nav .nav-link,
+.navbar-brand,
+.dropdown-item {
+  color: var(--text-main) !important;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 400;
+  transition: all 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link:focus,
+.dropdown-item:hover,
+.dropdown-item:focus {
+  font-weight: bold;
+  background-color:burlywood;
+  color: #fff !important;
+}
+
+.navbar-brand img {
+  max-height: 50px;
+}
+
+.dropdown-menu {
+  background-color: white;
+}
+
+.dropdown-menu .dropdown-item {
+  color: white !important;
+  background-color: black; /* Match navbar background */
+}
+
+.dropdown-item:hover {
+  background-color:white;
+  color: rgb(8, 8, 8) !important;
+}
+
+.navbar-toggler {
+  border-color: white;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255,255,255,1)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.whatsapp-icon {
+  display: flex;
+  justify-content: end;
+  align-items: end;
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.7) 100%);
+}
+
+.video-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  max-width: 90%;
+  width: 100%;
+}
+
+.video-text h2 {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold-accent);
+  margin-bottom: 0px;
+}
+
+.video-text h1 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  background: linear-gradient(to right, #fff, #ddd);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.video-text p {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+}
+
+.btn-premium {
+  background-color: transparent;
+  color: var(--gold-accent);
+  border: 1px solid var(--gold-accent);
+  border-radius: 50px;
+  padding: 12px 30px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.btn-premium:hover {
+  background-color: var(--gold-accent);
+  color: #000;
+  box-shadow: 0 0 20px var(--gold-glow);
+  transform: translateY(-2px);
+}
+
+.btn-premium-filled {
+  background-color: var(--gold-accent);
+  color: #000;
+  border: 1px solid var(--gold-accent);
+  border-radius: 50px;
+  padding: 12px 30px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+.btn-premium-filled:hover {
+  background-color: transparent;
+  color: var(--gold-accent);
+  box-shadow: 0 0 20px var(--gold-glow);
+  transform: translateY(-2px);
+}
+
+
+@media (min-width: 768px) {
+  .video-text {
+    max-width: 700px;
+  }
+  .video-text h1 {
+    font-size: 5rem;
+  }
+}
+
+.custom-image {
+  max-width: 60px;
+  height: auto;
+  margin-bottom: 20px;
+  filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.5));
+}
+
+.main-content {
+  padding-top: 50px;
+  background-color: var(--bg-dark);
+}
+
+/* Glassmorphism Cards */
+.glass-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 30px 20px;
+  transition: all 0.4s ease;
+  height: 100%;
+}
+
+.glass-card:hover {
+  transform: translateY(-10px);
+  border-color: rgba(212, 175, 55, 0.3);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.4), 0 0 20px rgba(212, 175, 55, 0.1);
+}
+
+.glass-card p:first-of-type {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: var(--text-main);
+  margin-bottom: 10px;
+}
+
+.glass-card .divider {
+  width: 40px;
+  height: 3px;
+  background-color: var(--gold-accent);
+  margin: 15px auto;
+  border-radius: 3px;
+}
+
+.glass-card p.desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.section-title {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: var(--text-main);
+  margin-bottom: 10px;
+}
+
+.section-subtitle {
+  color: var(--gold-accent);
+  font-family: 'Outfit', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.9rem;
+  margin-bottom: 30px;
+}
+
+/* WhatsApp Button Premium */
+.btn-whatsapp {
+  background-color: transparent;
+  color: #25D366;
+  border: 1px solid #25D366;
+  border-radius: 50px;
+  padding: 10px 15px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.btn-whatsapp:hover {
+  background-color: #25D366;
+  color: #fff;
+  box-shadow: 0 0 15px rgba(37, 211, 102, 0.4);
+  transform: translateY(-2px);
+}
+
+.object-fit-cover {
+  object-fit: cover;
+}
+
+/* Floating Labels for Premium Inputs */
+.form-floating-premium {
+  position: relative;
+}
+
+.form-floating-premium > input {
+  padding-top: 1.625rem;
+  padding-bottom: 0.625rem;
+  height: calc(3.5rem + 2px);
+  line-height: 1.25;
+}
+
+.form-floating-premium > label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  padding: 1rem 1.5rem;
+  pointer-events: none;
+  border: 1px solid transparent;
+  transform-origin: 0 0;
+  transition: opacity .1s ease-in-out,transform .1s ease-in-out;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.form-floating-premium > .form-control:focus ~ label,
+.form-floating-premium > .form-control:not(:placeholder-shown) ~ label {
+  opacity: .65;
+  transform: scale(.85) translateY(-0.5rem) translateX(0.15rem);
+  color: var(--gold-accent);
+}
+
+/* Password Toggle Icon */
+.password-toggle {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.5);
+  z-index: 10;
+  transition: color 0.3s ease;
+}
+
+.password-toggle:hover {
+  color: var(--gold-accent);
+}

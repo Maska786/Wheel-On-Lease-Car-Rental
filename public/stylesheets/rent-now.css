@@ -1,0 +1,52 @@
+/* Booking page styles */
+.option-card {
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 2px solid transparent;
+}
+
+.option-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.option-card.selected {
+    border-color: #0d6efd;
+    box-shadow: 0 0 10px rgba(13, 110, 253, 0.5);
+}
+
+.booking-card {
+    background: #111;
+    color: #fff;
+    padding: 20
+}
+
+/* Dropdown background black */
+.iti__country-list {
+    background-color: #000 !important;
+    color: #fff !important;
+}
+
+/* Each country item text white */
+.iti__country {
+    color: #fff !important;
+}
+
+/* Hover effect */
+.iti__country:hover {
+    background-color: #222 !important;
+    color: #fff !important;
+}
+
+/* Change phone number text color to black */
+.iti__selected-dial-code,
+.iti__input {
+    color: #000 !important;
+    background-color: #fff;
+    /* optional: make input background white */
+}
+
+/* Optional: placeholder color */
+.iti__input::placeholder {
+    color: #555 !important;
+}

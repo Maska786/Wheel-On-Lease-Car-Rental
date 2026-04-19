@@ -1,0 +1,32 @@
+.signup-section {
+    background-image: url('/images/Image/Wheels on lease-singup.png');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    overflow-y: auto; /* allow scroll if needed */
+  }
+  
+  .container.h-100 {
+    /* Add vertical padding so content inside has breathing room */
+    padding-top: 60px;
+    padding-bottom: 60px;
+    height: 100%;
+  }
+  
+  .transparent-card {
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  
+    /* Remove margin-top/bottom if you add padding to container */
+    margin: 0;
+  }
+  
+  .form-control::placeholder {
+    color: white;
+    opacity: 1;
+  }
+  
+  

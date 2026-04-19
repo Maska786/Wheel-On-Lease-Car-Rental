@@ -1,0 +1,55 @@
+<header class="fixed-top">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand" href="/">
+                <img src="/images/Wheels On Lease Logo.png" alt="Logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About Us</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">Our Fleet</a>
+                        <ul class="dropdown-menu bg-black text-white">
+                            <li><a class="dropdown-item" href="/fleet">Sedan</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="/fleet">SUV</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact Us</a>
+                    </li>
+                    <li class="nav-item whatsapp-icon p-2">
+                        <a href="https://wa.me/971507061253" target="_blank" class="text-white fs-4">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+                    </li>
+                    
+                    {{#if user}}
+                        <li class="p-2 nav-item text-white">
+                            <span>Welcome, <b>{{user.name}}</b></span>
+                        </li>
+                        <li class="p-2">
+                            <a href="/logout" class="btn btn-light">Logout</a>
+                        </li>
+                    {{else}}
+                        <li class="p-2">
+                            <a href="/login" class="btn btn-light">Login</a>
+                        </li>
+                    {{/if}}
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>

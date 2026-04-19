@@ -1,0 +1,85 @@
+.login-section {
+    position: relative;
+    min-height: 100vh;
+}
+
+.image-section {
+    position: relative;
+    min-height: 100vh;
+}
+
+/* ====== Video Background ====== */
+.video-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    /* dark overlay */
+    z-index: 1;
+}
+
+/* ====== Card (Login Box) ====== */
+.card {
+    z-index: 3;
+}
+
+/* ====== Login Section Layout ====== */
+.login-section .row {
+    height: 100%;
+}
+
+/* ====== Icon Styling ====== */
+.text-overlay ul li i,
+.image-section ul li i {
+    color: rgb(249, 243, 243);
+}
+
+.image-section {
+    background-image: url('/images/Wheels\ on\ lease-Login.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+}
+
+
+
+/* ====== Responsive Styles ====== */
+@media (max-width: 767.98px) {
+
+    /* Allow height to adjust naturally on mobile */
+    .login-section,
+    .image-section {
+        height: auto;
+    }
+
+    /* Keep the form visible within the video background */
+    .login-section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+
+    /* Shorter video on mobile */
+    .video-bg,
+    .video-overlay {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+    }
+}

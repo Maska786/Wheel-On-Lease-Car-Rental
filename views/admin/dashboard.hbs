@@ -1,0 +1,58 @@
+{{#if admin}}
+<h2 class="mb-4 text-center pt-5">Welcome To Admin Dashboard</h2>
+<nav class="navbar navbar-expand-lg navbar-secondary bg-secondary border-bottom shadow-sm"
+  style="margin-top: 80px; padding-top: 10px; padding-bottom: 10px;">
+  <div class="container justify-content-center">
+    <ul class="navbar-nav text-center gap-4">
+      <li class="nav-item">
+        <a class="nav-link text-white fw-bold" href="/admin/dashboard">Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white fw-bold" href="/admin/add-products">Add Car</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white fw-bold" href="/admin/view-products">View Products</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white fw-bold" href="/admin/bookings">Bookings</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white fw-bold" href="/admin/forms-admin">User Forms</a>
+      </li>
+
+    </ul>
+  </div>
+</nav>
+{{/if}}
+
+<div class="container mt-3 mb-3">
+
+  <div class="row g-4 text-center">
+    <div class="col-md-4">
+      <div class="card shadow-sm border-0">
+        <div class="card-body">
+          <h5 class="card-title">Total Cars</h5>
+          <p class="display-6 fw-bold text-primary">{{stats.totalProducts}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow-sm border-0">
+        <div class="card-body">
+          <h5 class="card-title">Total Users</h5>
+          <p class="display-6 fw-bold text-success">{{stats.totalUsers}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow-sm border-0">
+        <div class="card-body">
+          <h5 class="card-title">Total Bookings</h5>
+          <p class="display-6 fw-bold text-danger">{{stats.totalBookings}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

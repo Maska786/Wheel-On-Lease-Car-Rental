@@ -1,0 +1,36 @@
+<h1 class="text-center my-4">My Bookings</h1>
+
+<div class="container">
+  {{#if bookings.length}}
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Sl No.</th>
+        <th>Car</th>
+        <th>Pickup Date</th>
+        <th>Return Date</th>
+        <th>Phone</th>
+        <th>Driving License</th>
+        <th>ID Document</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each bookings}}
+      <tr>
+        <td>{{addOne @index}}</td>
+        <td>{{this.car.carName}}</td>
+        <td>{{this.pickupDate}}</td>
+        <td>{{this.returnDate}}</td>
+        <td>{{this.phone}}</td>
+        <td><a href="{{this.drivingLicense}}" target="_blank">View</a></td>
+        <td><a href="{{this.idDocument}}" target="_blank">View</a></td>
+        <td>{{this.status}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  {{else}}
+  <p>No bookings yet.</p>
+  {{/if}}
+</div>

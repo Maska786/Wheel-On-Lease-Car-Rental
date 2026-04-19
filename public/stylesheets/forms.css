@@ -1,0 +1,72 @@
+/* Dropdown background black */
+.iti__country-list {
+    background-color: #000 !important;
+    color: #fff !important;
+  }
+  
+  /* Each country item text white */
+  .iti__country {
+    color: #fff !important;
+  }
+  
+  /* Hover effect */
+  .iti__country:hover {
+    background-color: #222 !important;
+    color: #fff !important;
+  }
+  
+/* Fix intl-tel-input full width */
+.iti {
+  width: 100%;
+}
+
+.iti__selected-dial-code {
+    color: #fff !important;
+}
+
+.iti__input {
+    color: #fff !important;
+    background-color: transparent !important;
+}
+
+/* Optional: placeholder color */
+.iti__input::placeholder {
+    color: #888 !important;
+}
+
+/* Premium Form Styles */
+.form-label-premium {
+    font-family: 'Outfit', sans-serif;
+    color: var(--text-main);
+    font-weight: 400;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+}
+
+.form-control-premium {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #fff !important;
+    border-radius: 8px;
+    padding: 12px 15px;
+    transition: all 0.3s ease;
+}
+
+.form-control-premium:focus {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    border-color: var(--gold-accent) !important;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.2) !important;
+}
+
+.form-control-premium::placeholder {
+    color: #6c757d;
+}
+
+/* Overriding browser autofill background */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px #1a1a1e inset !important;
+    -webkit-text-fill-color: white !important;
+}

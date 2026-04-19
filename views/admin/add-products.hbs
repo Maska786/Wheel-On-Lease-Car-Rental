@@ -1,0 +1,105 @@
+{{#if admin}}
+<h2 class="mb-4 text-center pt-5">Welcome To Admin Dashboard</h2>
+<nav class="navbar navbar-expand-lg navbar-secondary bg-secondary border-bottom shadow-sm"
+  style="margin-top: 80px; padding-top: 10px; padding-bottom: 10px;">
+  <div class="container justify-content-center">
+    <ul class="navbar-nav text-center gap-4">
+      <li class="nav-item">
+        <a class="nav-link text-white fw-bold" href="/admin/dashboard">Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white fw-bold" href="/admin/add-products">Add Car</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white fw-bold" href="/admin/view-products">View Products</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white fw-bold" href="/admin/bookings">Bookings</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white fw-bold" href="/admin/forms">User Forms</a>
+      </li>
+
+    </ul>
+  </div>
+</nav>
+{{/if}}
+
+<section>
+  <div class="container-fluid">
+    <form action="/admin/add-products" method="POST" enctype="multipart/form-data">
+      <div class="row justify-content-center pt-5 mb-4">
+        <div class="col-md-4 col-12 text-center">
+          <h3 class="border border-2 border-white p-2">Add Car</h3>
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-md-6 col-12">
+
+          <!-- Car Name -->
+          <div class="mb-3">
+            <label for="carName" class="form-label">Car Name</label>
+            <input type="text" class="form-control" id="carName" name="carName" placeholder="Enter car name" required>
+          </div>
+
+          <!-- Car Image Upload -->
+          <div class="mb-3">
+            <label for="carImage" class="form-label">Car Image</label>
+            <input class="form-control" type="file" id="carImage" name="CarImage" accept="image/*" required>
+          </div>
+
+          <!-- Alt Text -->
+          <div class="mb-3">
+            <label for="altText" class="form-label">Image Alt Text</label>
+            <input type="text" class="form-control" id="altText" name="altText"
+              placeholder="Describe the image (e.g., Kia Sonet 2024 Model)">
+          </div>
+
+          <!-- Car Description -->
+          <div class="mb-3">
+            <label for="carDescription" class="form-label">Description</label>
+            <textarea class="form-control" id="carDescription" name="carDescription" rows="3"
+              placeholder="Describe the car" required></textarea>
+          </div>
+
+          <!-- Price Daily -->
+          <div class="mb-3">
+            <label for="priceDaily" class="form-label">Price (Daily)</label>
+            <input type="number" class="form-control" id="priceDaily" name="priceDaily" step="0.01"
+              placeholder="Enter daily price" required>
+          </div>
+
+          <!-- Price Weekly -->
+          <div class="mb-3">
+            <label for="priceWeekly" class="form-label">Price (Weekly)</label>
+            <input type="number" class="form-control" id="priceWeekly" name="priceWeekly" step="0.01"
+              placeholder="Enter weekly price" required>
+          </div>
+
+          <!-- Price Monthly -->
+          <div class="mb-3">
+            <label for="priceMonthly" class="form-label">Price (Monthly)</label>
+            <input type="number" class="form-control" id="priceMonthly" name="priceMonthly" step="0.01"
+              placeholder="Enter monthly price" required>
+          </div>
+
+          <!-- Category -->
+          <div class="mb-4">
+            <label for="carCategory" class="form-label">Category</label>
+            <select class="form-select" id="carCategory" name="carCategory" required>
+              <option selected disabled value="">Select a category</option>
+              <option value="SUV">SUV</option>
+              <option value="Sedan">Sedan</option>
+            </select>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="d-grid pb-5">
+            <button type="submit" class="btn btn-success">Add Car</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
