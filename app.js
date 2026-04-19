@@ -27,7 +27,7 @@ const app = express();
 app.engine('hbs', exphbs.engine({
     extname: 'hbs',
     defaultLayout: 'layout',
-    layoutsDir: path.join(__dirname, 'views', 'layouts'),
+    layoutsDir: path.join(__dirname, 'views', 'Layouts'),
     partialsDir: path.join(__dirname, 'views', 'partials'),
     handlebars: allowInsecurePrototypeAccess(Handlebars),
     helpers: {
