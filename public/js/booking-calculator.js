@@ -219,7 +219,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // ------------------ STRIPE CHECKOUT ------------------
   if (document.getElementById("checkout-button")) {
-    const stripe = Stripe(stripePublishableKey); // Make sure this key is defined in template
+    // Access the global key defined in rent-now.hbs
+    const publishableKey = window.stripePublishableKey;
+    if (!publishableKey) {
+        console.error("Stripe Publishable Key is missing!");
+    }
+    const stripe = typeof Stripe !== 'undefined' ? Stripe(publishableKey) : null;
 
     document.getElementById("checkout-button").addEventListener("click", (e) => {
       e.preventDefault();
@@ -227,25 +232,42 @@ document.addEventListener("DOMContentLoaded", function () {
       const total = parseFloat(document.getElementById("total").textContent) || 0;
       const pickup = document.getElementById("pickupDate").value;
       const drop = document.getElementById("returnDate").value;
+      
+      // Correct carId retrieval from data attribute
+      const carId = document.getElementById("dailyPrice")?.dataset.carId;
 
       if (!pickup || !drop) {
         alert("Please select pickup and return dates.");
         return;
       }
+      
+      if (!carId) {
+        alert("Car information missing. Please try refreshing the page.");
+        return;
+      }
 
-      fetch("/users/create-checkout-session", {
+      if (!stripe) {
+        alert("Payment system is not initialized. Please try again later.");
+        return;
+      }
+
+      // Fix endpoint from /users/create-checkout-session to /create-checkout-session
+      fetch("/create-checkout-session", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ amount: total, carId, pickupDate: pickup, returnDate: drop }),
       })
-        .then(res => res.json())
+        .then(res => {
+            if (!res.ok) throw new Error("Server returned " + res.status);
+            return res.json();
+        })
         .then(data => {
           if (data.url) window.location = data.url;
-          else alert("Failed to create Stripe checkout session.");
+          else alert("Failed to create Stripe checkout session: " + (data.error || "Unknown error"));
         })
         .catch(err => {
-          console.error(err);
-          alert("Error creating Stripe session.");
+          console.error("Stripe Fetch Error:", err);
+          alert("Error creating Stripe session: " + err.message);
         });
     });
   }

@@ -1,10 +1,12 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const router = express.Router();
 const productHelpers = require("../helpers/product-helpers");
 const userHelpers = require("../helpers/users-helper");
 const Product = require("../models/product-models");
 const Booking = require("../models/booking");
 const Form = require("../models/form-model");
+const Lead = require("../models/Lead");
 
 
 
@@ -90,12 +92,45 @@ router.post("/form", async (req, res) => {
     req.session.error = "Something went wrong. Please try again later.";
     return res.redirect("/form");
   }
+});// ---------------- CAPTURE LEAD (FLEET MODAL) ----------------
+router.post("/capture-lead", async (req, res) => {
+  const { fullName, phoneNumber, carId } = req.body;
+  console.log("Lead Capture Request:", { fullName, phoneNumber, carId });
+
+  if (!fullName || !phoneNumber) {
+    return res.status(400).json({ error: "Missing Name or Phone" });
+  }
+
+  // Store in session immediately — don't block on DB save
+  req.session.tempLeadData = { fullName, phoneNumber };
+
+  // Fire-and-forget: save to DB in background, don't block the response
+  const leadData = { fullName, phoneNumber, source: "Fleet Rent Now Modal" };
+  if (carId && mongoose.Types.ObjectId.isValid(carId)) {
+    leadData.carId = carId;
+  }
+  new Lead(leadData).save().catch(err => console.error("Lead save error (bg):", err));
+
+  // Respond immediately
+  res.status(200).json({
+    message: "Lead captured successfully",
+    isLoggedIn: !!req.session.user
+  });
 });
 
 // ---------------- LOGIN / SIGNUP ROUTES ----------------
 router.get("/login", (req, res) => {
   if (req.session.user) return res.redirect("/");
-  res.render("users/login", { title: "Login", loginError: req.session.loginError });
+  
+  if (req.query.redirect) {
+    req.session.loginRedirect = req.query.redirect;
+  }
+
+  res.render("users/login", { 
+    title: "Login", 
+    loginError: req.session.loginError,
+    joinMessage: req.query.join === 'true'
+  });
   req.session.loginError = null;
 });
 
@@ -168,13 +203,31 @@ router.get("/fleet", async (req, res) => {
 router.get("/booking/:carId", verifyUser, async (req, res) => {
   try {
     const car = await productHelpers.getProductDetails(req.params.carId);
+    
+    // Check for pre-fill data from lead capture
+    const leadData = req.session.tempLeadData || {};
+    let firstName = "", lastName = "";
+    if (leadData.fullName) {
+      const parts = leadData.fullName.split(" ");
+      firstName = parts[0] || "";
+      lastName = parts.slice(1).join(" ") || "";
+    }
+
     res.render("users/rent-now", {
       title: `Book ${car.carName}`,
       car,
+      preFill: {
+        firstName,
+        lastName,
+        phoneNumber: leadData.phoneNumber || ""
+      },
       user: req.session.user,
       admin: req.session.admin,
-      stripePublishableKey: process.env.STRIPE_PUBLISHABLE_KEY // send to template
+      stripePublishableKey: process.env.STRIPE_PUBLISHABLE_KEY 
     });
+    
+    // Clear temp data
+    delete req.session.tempLeadData;
   } catch (err) {
     console.error(err);
     res.status(500).send("Error loading booking page");
@@ -254,6 +307,15 @@ router.get("/my-bookings", verifyUser, async (req, res) => {
     console.error(err);
     res.status(500).send("Error loading bookings");
   }
+});
+
+// ---------------- NEWSLETTER ROUTE ----------------
+router.post("/newsletter", (req, res) => {
+  const { email } = req.body;
+  console.log(`Newsletter subscription for: ${email}`);
+  // In a real app, save to DB or email service
+  req.session.success = "Thank you for subscribing to our newsletter!";
+  res.redirect("back");
 });
 
 module.exports = router;

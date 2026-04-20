@@ -12,7 +12,7 @@
                 <div class="divider"></div>
                     <p class="mb-1">
                         <strong>Daily Price:</strong> AED {{car.priceDaily}}
-                        <span id="dailyPrice" data-daily="{{car.priceDaily}}" hidden></span>
+                        <span id="dailyPrice" data-daily="{{car.priceDaily}}" data-car-id="{{car._id}}" hidden></span>
                     </p>
                     <p class="mb-1">
                         <strong>Weekly Price:</strong> AED {{car.priceWeekly}}
@@ -35,17 +35,17 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="firstName" class="form-label form-label-premium">First Name</label>
-                        <input type="text" name="firstName" id="firstName" class="form-control form-control-premium" required>
+                        <input type="text" name="firstName" id="firstName" class="form-control form-control-premium" value="{{preFill.firstName}}" required>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="lastName" class="form-label form-label-premium">Last Name</label>
-                        <input type="text" name="lastName" id="lastName" class="form-control form-control-premium" required>
+                        <input type="text" name="lastName" id="lastName" class="form-control form-control-premium" value="{{preFill.lastName}}" required>
                     </div>
                 </div>
 
                 <div class="mb-3">
                     <label for="email" class="form-label form-label-premium">Email</label>
-                    <input type="email" name="email" id="email" class="form-control form-control-premium" required>
+                    <input type="email" name="email" id="email" class="form-control form-control-premium" value="{{preFill.email}}" required>
                 </div>
 
                 <!-- Full Country Dropdown -->
@@ -79,7 +79,7 @@
                 <!-- Phone input -->
                 <div class="mb-3">
                     <label for="phone" class="form-label form-label-premium">Phone Number</label>
-                    <input type="tel" id="phone" class="form-control form-control-premium w-100" required>
+                    <input type="tel" id="phone" class="form-control form-control-premium w-100" value="{{preFill.phoneNumber}}" required>
                     <input type="hidden" name="phone" id="fullPhone">
                 </div>
 
@@ -201,9 +201,10 @@
 </div>
 
 <link rel="stylesheet" href="/stylesheets/rent-now.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.2.1/css/intlTelInput.css">
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.2.1/js/intlTelInput.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initAutocomplete" async
-    defer></script>
+<script>
+    window.stripePublishableKey = "{{stripePublishableKey}}";
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initAutocomplete" async defer></script>
 <script src="/js/booking-calculator.js"></script>

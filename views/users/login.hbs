@@ -12,7 +12,15 @@
                     <div class="text-center">
                         <form action="/login" method="post">
                             <h3 class="mb-3 fw-bold" style="font-family: 'Outfit', sans-serif; color: var(--gold-accent);">LOGIN</h3>
+                            
+                            {{#if joinMessage}}
+                            <div class="p-3 mb-4 rounded-3" style="background: rgba(212, 175, 55, 0.1); border: 1px solid rgba(212, 175, 55, 0.3);">
+                                <h5 class="text-gold mb-1 fw-bold"><i class="fas fa-crown me-2"></i> Join the Elite Club</h5>
+                                <p class="text-white small m-0 opacity-75">Sign in or create an account to finalize your booking and unlock premium benefits.</p>
+                            </div>
+                            {{else}}
                             <p class="text-light opacity-75 mb-4">Please enter your login and password!</p>
+                            {{/if}}
 
                             {{#if loginError}}
                             <div class="alert alert-danger" role="alert">

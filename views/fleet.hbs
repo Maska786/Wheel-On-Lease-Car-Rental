@@ -1,45 +1,110 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
+<!-- Fleet Hero Section -->
+<section class="fleet-hero text-center text-white">
+    <div class="container">
+        <h4 class="section-subtitle mb-2">Our Premium Collection</h4>
+        <h1 class="section-title mb-4" style="font-size: 3.5rem;">Explore The <span style="color: var(--gold-accent);">Elite Fleet</span></h1>
+        <p class="lead opacity-75 mx-auto mb-5" style="max-width: 600px;">
+            Select from our curated range of luxury vehicles maintained to the highest standards of excellence.
+        </p>
+    </div>
+</section>
+
+<!-- Search / Filter Widget -->
+<div class="container">
+    <div class="search-widget mx-auto animate-float" style="max-width: 1000px;">
+        <form class="row g-3 align-items-end">
+            <div class="col-lg-3 col-md-6">
+                <label class="text-gold small text-uppercase fw-bold mb-2 d-block">Location</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-transparent border-secondary text-gold"><i class="fas fa-map-marker-alt"></i></span>
+                    <select class="form-select bg-transparent text-white border-secondary">
+                        <option value="dubai">Dubai, UAE</option>
+                        <option value="abudhabi">Abu Dhabi, UAE</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <label class="text-gold small text-uppercase fw-bold mb-2 d-block">Pickup Date</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-transparent border-secondary text-gold"><i class="fas fa-calendar-alt"></i></span>
+                    <input type="date" class="form-control bg-transparent text-white border-secondary">
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <label class="text-gold small text-uppercase fw-bold mb-2 d-block">Return Date</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-transparent border-secondary text-gold"><i class="fas fa-calendar-check"></i></span>
+                    <input type="date" class="form-control bg-transparent text-white border-secondary">
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12">
+                <button type="button" class="btn-premium-filled w-100 py-2 btn-shine-effect">Find Your Car</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Category Filters -->
+<div class="container mt-5">
+    <div class="filter-container text-center">
+        <a href="#suv" class="filter-chip active">SUV</a>
+        <a href="#sedan" class="filter-chip">Sedan</a>
+        <a href="#luxury" class="filter-chip">Luxury</a>
+        <a href="#economy" class="filter-chip">Economy</a>
+        <a href="#sports" class="filter-chip">Sports</a>
+    </div>
+</div>
+
 <!-- SUV Section -->
-<section id="suv" class="pt-5" style="background-color: var(--bg-dark);">
-  <div class="row text-center mb-4">
-      <div class="col-12">
-          <h4 class="section-subtitle">Luxury & Space</h4>
-          <h2 class="section-title">SUV Fleet</h2>
-      </div>
-  </div>
+<section id="suv" class="py-5" style="background-color: var(--bg-dark);">
   <div class="container">
+    <div class="row text-center mb-5">
+        <div class="col-12">
+            <h2 class="section-title" style="font-size: 2.2rem;">Luxury <span style="color: var(--gold-accent);">SUVs</span></h2>
+            <div class="divider mx-auto" style="width: 60px; height: 3px; background: var(--gold-accent);"></div>
+        </div>
+    </div>
     <div class="row g-4 d-flex align-items-stretch justify-content-center">
       {{#each suvProducts}}
       <div class="col-lg-4 col-md-6 col-sm-12">
-        <div class="glass-card d-flex flex-column" style="padding: 20px;">
-          <img src="{{this.image}}" class="w-100 rounded-3 mb-3 object-fit-cover" alt="{{this.altText}}" style="height: 200px;">
-          <h5 class="fw-bold text-center" style="font-family: 'Outfit', sans-serif; color: var(--gold-accent); font-size: 1.5rem;">{{this.carName}}</h5>
-          <div class="divider"></div>
-          <p class="desc text-center mb-4 flex-grow-1">{{this.carDescription}}</p>
-          
-          <div class="pricing-minimal text-center mb-4 px-3 py-2 rounded-3" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05);">
-            <div class="d-flex justify-content-between align-items-center mb-1">
-              <span class="text-light opacity-75">Daily</span>
-              <span class="fw-bold" style="color: var(--text-main);">AED {{this.priceDaily}}</span>
-            </div>
-            <div class="d-flex justify-content-between align-items-center mb-1">
-              <span class="text-light opacity-75">Weekly</span>
-              <span class="fw-bold" style="color: var(--text-main);">AED {{this.priceWeekly}}</span>
-            </div>
-            <div class="d-flex justify-content-between align-items-center">
-              <span class="text-light opacity-75">Monthly</span>
-              <span class="fw-bold" style="color: var(--text-main);">AED {{this.priceMonthly}}</span>
-            </div>
+        <div class="car-card-compact d-flex flex-column h-100">
+          <div class="car-image-container">
+            <span class="category-badge">SUV</span>
+            <img src="{{this.image}}" alt="{{this.carName}}">
           </div>
+          <div class="p-4 flex-grow-1 d-flex flex-column">
+            <h5 class="fw-bold mb-2" style="font-family: 'Outfit', sans-serif; font-size: 1.4rem; color: #fff;">{{this.carName}}</h5>
+            <p class="text-muted small mb-4 line-clamp-2" style="font-size: 0.9rem;">{{this.carDescription}}</p>
+            
+            <div class="mb-4 mt-auto">
+                <div class="d-flex align-items-baseline gap-2">
+                    <span class="price-tag">AED {{this.priceDaily}}</span>
+                    <span class="price-period">/ Daily</span>
+                </div>
+                <div class="d-flex justify-content-between mt-2 pt-2 border-top border-secondary opacity-50">
+                    <span class="small text-white">Weekly: AED {{this.priceWeekly}}</span>
+                    <span class="small text-white">Monthly: AED {{this.priceMonthly}}</span>
+                </div>
+            </div>
 
-          <div class="d-flex justify-content-center gap-3 mt-auto">
-            <a href="https://wa.me/971507061253" target="_blank" class="btn-whatsapp text-center text-decoration-none px-4">
-              <i class="fab fa-whatsapp me-1"></i> Chat
-            </a>
-            <a href="/booking/{{this._id}}" class="btn-premium-filled text-center text-decoration-none" style="padding: 10px 20px; font-size: 0.9rem;">
-              Rent Now
-            </a>
+            <div class="row g-2">
+                <div class="col-4">
+                    <a href="https://wa.me/971507061253" target="_blank" class="btn btn-outline-success w-100 py-2" style="border-radius: 10px; border-color: #25D366; color: #25D366;">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+                <div class="col-8">
+                    <button type="button" 
+                       class="btn-premium-filled w-100 py-2 text-center text-decoration-none btn-shine-effect rent-now-btn" 
+                       data-car-id="{{this._id}}" 
+                       data-car-name="{{this.carName}}"
+                       style="border-radius: 10px; font-size: 0.9rem; border: none;">
+                        Rent Now
+                    </button>
+                </div>
+            </div>
           </div>
         </div>
       </div>
@@ -50,44 +115,52 @@
 
 <!-- Sedan Section -->
 <section id="sedan" class="py-5" style="background-color: var(--bg-dark);">
-  <div class="row text-center mb-4">
-      <div class="col-12">
-          <h4 class="section-subtitle">Comfort & Elegance</h4>
-          <h2 class="section-title">Sedan Fleet</h2>
-      </div>
-  </div>
   <div class="container">
+    <div class="row text-center mb-5">
+        <div class="col-12">
+            <h2 class="section-title" style="font-size: 2.2rem;">Elite <span style="color: var(--gold-accent);">Sedans</span></h2>
+            <div class="divider mx-auto" style="width: 60px; height: 3px; background: var(--gold-accent);"></div>
+        </div>
+    </div>
     <div class="row g-4 d-flex align-items-stretch justify-content-center">
       {{#each sedanProducts}}
       <div class="col-lg-4 col-md-6 col-sm-12">
-        <div class="glass-card d-flex flex-column" style="padding: 20px;">
-          <img src="{{this.image}}" class="w-100 rounded-3 mb-3 object-fit-cover" alt="{{this.altText}}" style="height: 200px;">
-          <h5 class="fw-bold text-center" style="font-family: 'Outfit', sans-serif; color: var(--gold-accent); font-size: 1.5rem;">{{this.carName}}</h5>
-          <div class="divider"></div>
-          <p class="desc text-center mb-4 flex-grow-1">{{this.carDescription}}</p>
-          
-          <div class="pricing-minimal text-center mb-4 px-3 py-2 rounded-3" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05);">
-            <div class="d-flex justify-content-between align-items-center mb-1">
-              <span class="text-light opacity-75">Daily</span>
-              <span class="fw-bold" style="color: var(--text-main);">AED {{this.priceDaily}}</span>
-            </div>
-            <div class="d-flex justify-content-between align-items-center mb-1">
-              <span class="text-light opacity-75">Weekly</span>
-              <span class="fw-bold" style="color: var(--text-main);">AED {{this.priceWeekly}}</span>
-            </div>
-            <div class="d-flex justify-content-between align-items-center">
-              <span class="text-light opacity-75">Monthly</span>
-              <span class="fw-bold" style="color: var(--text-main);">AED {{this.priceMonthly}}</span>
-            </div>
+        <div class="car-card-compact d-flex flex-column h-100">
+          <div class="car-image-container">
+            <span class="category-badge">Sedan</span>
+            <img src="{{this.image}}" alt="{{this.carName}}">
           </div>
+          <div class="p-4 flex-grow-1 d-flex flex-column">
+            <h5 class="fw-bold mb-2" style="font-family: 'Outfit', sans-serif; font-size: 1.4rem; color: #fff;">{{this.carName}}</h5>
+            <p class="text-muted small mb-4 line-clamp-2" style="font-size: 0.9rem;">{{this.carDescription}}</p>
+            
+            <div class="mb-4 mt-auto">
+                <div class="d-flex align-items-baseline gap-2">
+                    <span class="price-tag">AED {{this.priceDaily}}</span>
+                    <span class="price-period">/ Daily</span>
+                </div>
+                <div class="d-flex justify-content-between mt-2 pt-2 border-top border-secondary opacity-50">
+                    <span class="small text-white">Weekly: AED {{this.priceWeekly}}</span>
+                    <span class="small text-white">Monthly: AED {{this.priceMonthly}}</span>
+                </div>
+            </div>
 
-          <div class="d-flex justify-content-center gap-3 mt-auto">
-            <a href="https://wa.me/971507061253" target="_blank" class="btn-whatsapp text-center text-decoration-none px-4">
-              <i class="fab fa-whatsapp me-1"></i> Chat
-            </a>
-            <a href="/booking/{{this._id}}" class="btn-premium-filled text-center text-decoration-none" style="padding: 10px 20px; font-size: 0.9rem;">
-              Rent Now
-            </a>
+            <div class="row g-2">
+                <div class="col-4">
+                    <a href="https://wa.me/971507061253" target="_blank" class="btn btn-outline-success w-100 py-2" style="border-radius: 10px; border-color: #25D366; color: #25D366;">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+                <div class="col-8">
+                    <button type="button" 
+                       class="btn-premium-filled w-100 py-2 text-center text-decoration-none btn-shine-effect rent-now-btn" 
+                       data-car-id="{{this._id}}" 
+                       data-car-name="{{this.carName}}"
+                       style="border-radius: 10px; font-size: 0.9rem; border: none;">
+                        Rent Now
+                    </button>
+                </div>
+            </div>
           </div>
         </div>
       </div>
@@ -95,3 +168,247 @@
     </div>
   </div>
 </section>
+
+<!-- Lead Capture Modal -->
+<div class="modal fade" id="rentModal" tabindex="-1" aria-labelledby="rentModalLabel" aria-hidden="true" data-bs-focus="false" data-bs-backdrop="true">
+  <div class="modal-dialog modal-dialog-centered" style="overflow: visible;">
+    <div class="modal-content shadow-lg" style="border: 2px solid var(--gold-accent); border-radius: 20px; background-color: #0d0d0f !important; overflow: visible;">
+      <div class="modal-header border-0 pb-0">
+        <h5 class="modal-title section-title text-gold w-100 text-center mt-3" id="rentModalLabel">Request Your Ride</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-4 pt-2" style="overflow: visible;">
+        <p class="text-center text-white-50 small mb-4">You are requesting details for: <br><strong id="modalCarName" class="text-gold"></strong></p>
+        
+        <form id="leadForm">
+          <input type="hidden" id="modalCarId" name="carId">
+          
+          <div class="mb-3 text-start">
+            <label for="leadName" class="form-label text-gold small text-uppercase fw-bold mb-2">Full Name</label>
+            <input type="text" class="form-control premium-modal-input" id="leadName" name="fullName" required placeholder="Enter your full name">
+          </div>
+          
+          <div class="mb-4 text-start">
+            <label for="leadPhone" class="form-label text-gold small text-uppercase fw-bold d-block mb-2">Phone Number</label>
+            <div class="iti-wrapper">
+                <input type="tel" class="form-control premium-modal-input w-100" id="leadPhone" name="phoneNumber" required autocomplete="off">
+            </div>
+          </div>
+          
+          <button type="submit" class="btn-premium-filled w-100 py-3 btn-shine-effect fw-bold" id="leadSubmitBtn">Submit & Continue</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const modalEl = document.getElementById('rentModal');
+    const leadPhoneInput = document.querySelector("#leadPhone");
+    const leadForm = document.getElementById('leadForm');
+    const modalBody = modalEl.querySelector('.modal-body');
+    let iti;
+
+    // Direct access to initialize ITI
+    function initITI() {
+        if (!iti && typeof window.intlTelInput !== 'undefined') {
+            iti = window.intlTelInput(leadPhoneInput, {
+                utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.2.1/js/utils.js",
+                separateDialCode: true,
+                initialCountry: "ae",
+                preferredCountries: ["ae", "sa", "qa", "kw", "om", "bh", "gb", "us"],
+                allowDropdown: true,
+                dropdownContainer: modalBody // High-compatibility dropdown placement
+            });
+        }
+    }
+
+    // Modal triggers
+    document.querySelectorAll('.rent-now-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.getElementById('modalCarName').textContent = this.getAttribute('data-car-name');
+            document.getElementById('modalCarId').value = this.getAttribute('data-car-id');
+            const bsModal = bootstrap.Modal.getOrCreateInstance(modalEl);
+            bsModal.show();
+        });
+    });
+
+    // Re-initialize ITI logic on show
+    modalEl.addEventListener('shown.bs.modal', function () {
+        initITI();
+        if (iti) {
+            iti.setCountry("ae");
+            leadPhoneInput.focus();
+        }
+    });
+
+    // Handle lead submission
+    leadForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        if (!iti || !iti.isValidNumber()) {
+            alert("Please enter a valid phone number.");
+            return;
+        }
+
+        const submitBtn = document.getElementById('leadSubmitBtn');
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Processing...";
+
+        try {
+            const formData = {
+                carId: document.getElementById('modalCarId').value,
+                fullName: document.getElementById('leadName').value,
+                phoneNumber: iti.getNumber()
+            };
+
+            const response = await fetch('/capture-lead', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                console.log("Lead captured, checking login status...");
+                
+                if (result.isLoggedIn) {
+                    window.location.href = "/booking/" + formData.carId;
+                } else {
+                    // Redirect guest to login with join parameter and destination
+                    window.location.href = "/login?join=true&redirect=/booking/" + formData.carId;
+                }
+            } else {
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.message || errorData.error || "Server returned status " + response.status);
+            }
+        } catch (error) {
+            console.error("Submission error:", error);
+            alert("Error: " + (error.message || "Unknown error occurred"));
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Submit & Continue";
+        }
+    });
+
+    // Cleanup on hide
+    modalEl.addEventListener('hidden.bs.modal', function () {
+        leadForm.reset();
+    });
+});
+</script>
+
+<style>
+/* ---- PREMIUM MODAL INPUT ---- */
+.premium-modal-input {
+    background-color: #1a1a1e !important;
+    border: 1px solid rgba(212, 175, 55, 0.4) !important;
+    color: #fff !important;
+    border-radius: 12px !important;
+    font-size: 1rem !important;
+    height: 52px !important;
+}
+.premium-modal-input:focus {
+    border-color: var(--gold-accent) !important;
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.3) !important;
+    outline: none !important;
+}
+.premium-modal-input::placeholder {
+    color: rgba(255, 255, 255, 0.45) !important;
+}
+
+/* ---- ITI PHONE INPUT LAYOUT INSIDE MODAL ---- */
+.iti-wrapper {
+    position: relative;
+    width: 100%;
+}
+/* Make ITI fill full width */
+.iti {
+    width: 100% !important;
+}
+/* The actual text input - add left padding for the flag button */
+.iti input[type="tel"] {
+    width: 100% !important;
+    padding-left: 90px !important; /* space for flag + dial code */
+    background-color: #1a1a1e !important;
+    border: 1px solid rgba(212, 175, 55, 0.4) !important;
+    color: #fff !important;
+    border-radius: 12px !important;
+    font-size: 1rem !important;
+    height: 52px !important;
+}
+.iti input[type="tel"]:focus {
+    border-color: var(--gold-accent) !important;
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.3) !important;
+    outline: none !important;
+}
+/* Flag + dial code button */
+.iti__flag-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    cursor: pointer;
+}
+.iti__selected-flag {
+    display: flex !important;
+    align-items: center !important;
+    height: 100% !important;
+    padding: 0 10px 0 12px !important;
+    background: rgba(212, 175, 55, 0.08) !important;
+    border-right: 1px solid rgba(212, 175, 55, 0.3) !important;
+    border-radius: 12px 0 0 12px !important;
+    gap: 6px;
+}
+.iti__selected-dial-code {
+    color: #fff !important;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+.iti__arrow {
+    border-top-color: rgba(212, 175, 55, 0.7) !important;
+}
+
+/* ---- DROPDOWN LIST ---- */
+.iti__country-list {
+    background-color: #16161a !important;
+    border: 1px solid var(--gold-accent) !important;
+    color: #fff !important;
+    border-radius: 10px !important;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.95) !important;
+    max-height: 220px !important;
+    overflow-y: auto !important;
+    width: 300px !important;
+    z-index: 99999 !important;
+}
+.iti__country-list .iti__country-name,
+.iti__country-list .iti__dial-code {
+    color: #fff !important;
+}
+.iti__country:hover {
+    background-color: rgba(212, 175, 55, 0.15) !important;
+}
+.iti__country.iti__highlight {
+    background-color: rgba(212, 175, 55, 0.25) !important;
+}
+.iti__search-input {
+    background-color: #0d0d0f !important;
+    border: 1px solid rgba(212, 175, 55, 0.4) !important;
+    color: #fff !important;
+    border-radius: 6px !important;
+    padding: 6px 10px !important;
+    width: calc(100% - 20px) !important;
+    margin: 10px !important;
+}
+.iti__divider {
+    border-bottom-color: rgba(255,255,255,0.1) !important;
+}
+
+/* ---- MODAL OVERFLOW FIX ---- */
+#rentModal,
+#rentModal .modal-dialog,
+#rentModal .modal-content,
+#rentModal .modal-body {
+    overflow: visible !important;
+}
+.modal-backdrop.show { opacity: 0.8 !important; }
+</style>
