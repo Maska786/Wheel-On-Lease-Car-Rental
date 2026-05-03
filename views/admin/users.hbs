@@ -10,8 +10,8 @@
         <!-- Header Section -->
         <div class="row mb-5 text-center">
             <div class="col-12">
-                <h5 class="section-subtitle mb-2" style="color: var(--gold-accent); letter-spacing: 2px;">COMMUNICATION</h5>
-                <h1 class="fw-bold section-title mb-3 text-white" style="font-family: 'Outfit', sans-serif;">Form Submissions</h1>
+                <h5 class="section-subtitle mb-2" style="color: var(--gold-accent); letter-spacing: 2px;">AUDIENCE</h5>
+                <h1 class="fw-bold section-title mb-3 text-white" style="font-family: 'Outfit', sans-serif;">Registered Users</h1>
                 <div class="divider mx-auto" style="width: 60px; height: 3px; background: var(--gold-accent); border-radius: 2px;"></div>
             </div>
         </div>
@@ -38,12 +38,12 @@
                             <a class="nav-link text-white hover-gold fw-bold" href="/admin/bookings"><i class="fas fa-calendar-check me-2"></i>Bookings</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white fw-bold active-admin-link" href="/admin/forms" style="color: var(--gold-accent) !important; border-bottom: 2px solid var(--gold-accent);">
-                                <i class="fas fa-envelope-open-text me-2"></i>Submissions
-                            </a>
+                            <a class="nav-link text-white hover-gold fw-bold" href="/admin/forms"><i class="fas fa-envelope-open-text me-2"></i>Submissions</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white hover-gold fw-bold" href="/admin/users"><i class="fas fa-users me-2"></i>Users</a>
+                            <a class="nav-link text-white fw-bold active-admin-link" href="/admin/users" style="color: var(--gold-accent) !important; border-bottom: 2px solid var(--gold-accent);">
+                                <i class="fas fa-users me-2"></i>Users
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -52,53 +52,49 @@
         {{/if}}
 
         <!-- Table Section -->
-        <div class="glass-card p-4 rounded-4 shadow-lg mx-auto" style="max-width: 1400px; border: 1px solid rgba(212, 175, 55, 0.4); background: #141414;">
+        <div class="glass-card p-4 rounded-4 shadow-lg mx-auto" style="max-width: 1200px; border: 1px solid rgba(212, 175, 55, 0.4); background: #141414;">
             <div class="table-responsive">
                 <table class="table table-borderless table-hover align-middle premium-table text-white mb-0">
                     <thead style="border-bottom: 2px solid var(--gold-accent);">
                         <tr>
                             <th class="py-3 px-4 text-uppercase" style="color: var(--gold-accent); font-size: 0.85rem; letter-spacing: 1px;">No.</th>
-                            <th class="py-3 px-4 text-uppercase" style="color: var(--gold-accent); font-size: 0.85rem; letter-spacing: 1px;">Name</th>
-                            <th class="py-3 px-4 text-uppercase" style="color: var(--gold-accent); font-size: 0.85rem; letter-spacing: 1px;">Contact Details</th>
-                            <th class="py-3 px-4 text-uppercase" style="color: var(--gold-accent); font-size: 0.85rem; letter-spacing: 1px;">Date Submitted</th>
-                            <th class="py-3 px-4 text-uppercase" style="color: var(--gold-accent); font-size: 0.85rem; letter-spacing: 1px;">Actions</th>
+                            <th class="py-3 px-4 text-uppercase" style="color: var(--gold-accent); font-size: 0.85rem; letter-spacing: 1px;">Display Name</th>
+                            <th class="py-3 px-4 text-uppercase" style="color: var(--gold-accent); font-size: 0.85rem; letter-spacing: 1px;">Email Address</th>
+                            <th class="py-3 px-4 text-uppercase text-center" style="color: var(--gold-accent); font-size: 0.85rem; letter-spacing: 1px;">Membership Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {{#if forms.length}}
-                            {{#each forms}}
+                        {{#if users.length}}
+                            {{#each users}}
                             <tr style="border-bottom: 1px solid rgba(255,255,255,0.1); background-color: #141414; transition: background-color 0.3s; color: #ffffff;">
                                 <td class="px-4 py-4"><span style="color: #bbbbbb; font-weight: 500;">#{{addOne @index}}</span></td>
                                 
                                 <td class="px-4 py-4">
-                                    <h6 class="fw-bold mb-0 text-white" style="font-size: 1.1rem;">{{this.firstName}} {{this.lastName}}</h6>
+                                    <div class="d-flex align-items-center">
+                                        <div class="rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 40px; height: 40px; background: rgba(212, 175, 55, 0.2); border: 1px solid var(--gold-accent); color: var(--gold-accent);">
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                        <h6 class="fw-bold mb-0 text-white" style="font-size: 1.1rem;">{{this.name}}</h6>
+                                    </div>
                                 </td>
                                 
                                 <td class="px-4 py-4">
-                                    <p class="mb-1 small text-white-50"><i class="fas fa-envelope me-2" style="color: var(--gold-accent);"></i> {{this.email}}</p>
-                                    <p class="mb-0 small text-white-50"><i class="fas fa-phone me-2" style="color: var(--gold-accent);"></i> {{this.countryCode}} {{this.phoneNumber}}</p>
-                                </td>
-                                
-                                <td class="px-4 py-4">
-                                    <span class="badge" style="background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2);">
-                                        <i class="fas fa-clock me-1 text-white-50"></i> {{this.createdAtFormatted}}
-                                    </span>
+                                    <p class="mb-0 text-white-50"><i class="fas fa-envelope me-2" style="color: var(--gold-accent);"></i> {{this.email}}</p>
                                 </td>
 
-                                <td class="px-4 py-4 ps-3 text-nowrap align-middle">
-                                    <form action="/admin/delete-form/{{this._id}}" method="POST" onsubmit="return confirm('🚨 Are you absolutely sure you want to delete this submission permanently?')">
-                                        <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill px-3 py-2 action-btn" style="border-width: 1px;">
-                                            <i class="fas fa-trash-alt me-1"></i> Delete
-                                        </button>
-                                    </form>
+                                <td class="px-4 py-4 text-center">
+                                    <span class="badge rounded-pill px-3 py-2" style="background: rgba(76, 175, 80, 0.1); color: #4CAF50; border: 1px solid #4CAF50; font-size: 0.85rem;">
+                                        <i class="fas fa-check-circle me-1"></i> Active Account
+                                    </span>
                                 </td>
                             </tr>
                             {{/each}}
                         {{else}}
                             <tr>
-                                <td colspan="5" class="text-center py-5 text-white-50" style="background-color:#141414;">
-                                    <i class="fas fa-folder-open fa-3x mb-3" style="color: rgba(212, 175, 55, 0.5);"></i>
-                                    <h5>No submissions found.</h5>
+                                <td colspan="4" class="text-center py-5 text-white-50" style="background-color:#141414;">
+                                    <i class="fas fa-users-slash fa-3x mb-3" style="color: rgba(212, 175, 55, 0.5);"></i>
+                                    <h5>No users registered yet.</h5>
+                                    <p>When clients sign up, they will appear here.</p>
                                 </td>
                             </tr>
                         {{/if}}
@@ -108,8 +104,6 @@
         </div>
     </div>
 </section>
-
-<script src="/js/forms.js"></script>
 
 <style>
 /* Adjust hover and selection styling */
@@ -122,14 +116,6 @@
 }
 .premium-table tbody tr:hover {
     background-color: rgba(212, 175, 55, 0.15) !important;
-}
-.action-btn {
-    transition: all 0.3s ease;
-}
-.hover-gold-bg:hover {
-    background-color: var(--gold-accent) !important;
-    color: #000 !important;
-    border-color: var(--gold-accent) !important;
 }
 
 /* Base resets for Bootstrap table backgrounds inside our glass component */

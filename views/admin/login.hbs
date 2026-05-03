@@ -1,17 +1,105 @@
-<div class="container mt-5">
-  <h2>Admin Login</h2>
-  {{#if error}}
-    <div class="alert alert-danger">{{error}}</div>
-  {{/if}}
-  <form method="POST" action="/admin/login">
-    <div class="mb-3">
-      <label>Email</label>
-      <input type="email" name="email" class="form-control" required />
+<section class="login-section col-md-12 col-12" style="min-height: 100vh;">
+    <video autoplay muted loop playsinline class="video-bg">
+        <source src="/images/Wheels on lease-Login.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+    </video>
+    <div class="video-overlay"></div>
+
+    <div class="container-fluid h-100 position-relative" style="z-index: 2;">
+        <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
+            <div class="col-12 col-md-5 col-lg-4 p-4 p-md-5">
+                <div class="glass-card shadow-lg" style="border-radius: 1rem; border: 1px solid rgba(212, 175, 55, 0.2); padding: 3rem;">
+                    <div class="text-center">
+                        <form action="/admin/login" method="POST">
+                            <i class="fas fa-shield-alt fa-3x mb-3" style="color: var(--gold-accent);"></i>
+                            <h3 class="mb-3 fw-bold" style="font-family: 'Outfit', sans-serif; color: var(--gold-accent);">ADMIN PORTAL</h3>
+                            
+                            <p class="text-light opacity-75 mb-4">Secure Area. Please enter your credentials.</p>
+
+                            {{#if error}}
+                            <div class="alert alert-danger" role="alert" style="background: rgba(220, 53, 69, 0.1); border: 1px solid rgba(220, 53, 69, 0.3); color: #ff6b6b; font-size: 0.95rem;">
+                                <i class="fas fa-exclamation-circle me-1"></i> {{error}}
+                            </div>
+                            {{/if}}
+
+                            {{#if success}}
+                            <div class="alert alert-success" role="alert" style="background: rgba(40, 167, 69, 0.1); border: 1px solid rgba(40, 167, 69, 0.3); color: #28a745; font-size: 0.95rem;">
+                                <i class="fas fa-check-circle me-1"></i> {{success}}
+                            </div>
+                            {{/if}}
+
+                            <div class="form-floating-premium mb-3 text-start">
+                                <input type="email" class="form-control form-control-premium text-white" placeholder=" "
+                                    name="email" id="floatingEmail" required />
+                                <label for="floatingEmail">Admin Email</label>
+                            </div>
+                            
+                            <div class="form-floating-premium mb-2 text-start">
+                                <input type="password" class="form-control form-control-premium text-white" placeholder=" "
+                                    name="password" id="floatingPassword" required />
+                                <label for="floatingPassword">Password</label>
+                                <i class="fas fa-eye password-toggle" id="togglePasswordBtn"></i>
+                            </div>
+
+                            <div class="mb-4 text-end position-relative" style="z-index: 100;">
+                                <a href="/admin/forgot-password" onclick="window.location.href='/admin/forgot-password'; return false;" class="text-decoration-none hover-gold" style="position: relative; z-index: 200; color: rgba(212, 175, 55, 0.8); font-size: 0.85rem; transition: color 0.3s; padding: 5px; cursor: pointer; display: inline-block;">
+                                    <i class="fas fa-lock-open me-1"></i> Forgot Security Key?
+                                </a>
+                            </div>
+
+                            <button class="btn-premium-filled w-100 mb-3 py-3 fw-bold" type="submit" style="letter-spacing: 1px;">
+                                ACCESS DASHBOARD
+                            </button>
+                            
+                            <div class="mt-4 pt-2" style="border-top: 1px solid rgba(255,255,255,0.1);">
+                                <a href="/" class="text-decoration-none" style="color: rgba(255,255,255,0.6); font-size: 0.85rem; transition: color 0.3s;">
+                                    <i class="fas fa-arrow-left me-1"></i> Return to Main Website
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="mb-3">
-      <label>Password</label>
-      <input type="password" name="password" class="form-control" required />
-    </div>
-    <button type="submit" class="btn btn-primary">Login</button>
-  </form>
-</div>
+</section>
+
+<link rel="stylesheet" href="/stylesheets/login.css">
+<style>
+    .login-section {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        background-color: #000;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    body, html {
+        height: 100%;
+    }
+    .glass-card:hover {
+        box-shadow: 0 15px 35px rgba(212, 175, 55, 0.2) !important;
+    }
+    .form-floating-premium label {
+        color: rgba(255, 255, 255, 0.6);
+        background: transparent !important;
+    }
+    .form-floating-premium > .form-control:focus ~ label,
+    .form-floating-premium > .form-control:not(:placeholder-shown) ~ label {
+        color: var(--gold-accent) !important;
+        transform: scale(.85) translateY(-2rem) translateX(0.15rem);
+    }
+</style>
+
+<script>
+    const togglePasswordBtn = document.getElementById('togglePasswordBtn');
+    const passwordInput = document.getElementById('floatingPassword');
+
+    if (togglePasswordBtn && passwordInput) {
+        togglePasswordBtn.addEventListener('click', function () {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.classList.toggle('fa-eye-slash');
+        });
+    }
+</script>

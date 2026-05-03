@@ -87,77 +87,43 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // ------------------ GOOGLE MAPS AUTOCOMPLETE ------------------
-  let deliveryMap, dropMap, deliveryMarker, dropMarker;
+  // ------------------ MAP PICKER WIRING ------------------
+  function wireMapPicker(triggerBtnId, clearBtnId, displayId, textId, hiddenLocationId, hiddenLatId, hiddenLngId) {
+    const triggerBtn  = document.getElementById(triggerBtnId);
+    const clearBtn    = document.getElementById(clearBtnId);
+    const display     = document.getElementById(displayId);
+    const textEl      = document.getElementById(textId);
+    const locationEl  = document.getElementById(hiddenLocationId);
+    const latEl       = document.getElementById(hiddenLatId);
+    const lngEl       = document.getElementById(hiddenLngId);
 
-  window.initAutocomplete = function () {
-    const deliveryInput = document.getElementById("deliveryLocation");
-    const deliveryLat = document.getElementById("deliveryLat");
-    const deliveryLng = document.getElementById("deliveryLng");
-    const deliveryMapBox = document.getElementById("deliveryMap");
+    if (!triggerBtn) return;
 
-    const dropInput = document.getElementById("dropLocation");
-    const dropLat = document.getElementById("dropLat");
-    const dropLng = document.getElementById("dropLng");
-    const dropMapBox = document.getElementById("dropMap");
-
-    deliveryMapBox.style.display = "none";
-    dropMapBox.style.display = "none";
-
-    const deliveryAutocomplete = new google.maps.places.Autocomplete(deliveryInput);
-    deliveryAutocomplete.addListener("place_changed", () => {
-      const place = deliveryAutocomplete.getPlace();
-      if (!place.geometry) return;
-      deliveryLat.value = place.geometry.location.lat();
-      deliveryLng.value = place.geometry.location.lng();
-      deliveryMapBox.style.display = "block";
-      if (!deliveryMap) {
-        deliveryMap = new google.maps.Map(deliveryMapBox, {
-          center: place.geometry.location,
-          zoom: 15,
-        });
-      }
-      deliveryMap.setCenter(place.geometry.location);
-      if (deliveryMarker) deliveryMarker.setMap(null);
-      deliveryMarker = new google.maps.Marker({
-        position: place.geometry.location,
-        map: deliveryMap,
-      });
-
-      deliveryInput.addEventListener("click", () => {
-        if (deliveryLat.value && deliveryLng.value) {
-          window.open(`https://www.google.com/maps?q=${deliveryLat.value},${deliveryLng.value}`, "_blank");
-        }
+    triggerBtn.addEventListener('click', () => {
+      window.MapPicker.open((lat, lng, address) => {
+        latEl.value = lat;
+        lngEl.value = lng;
+        locationEl.value = address;
+        textEl.textContent = address;
+        display.classList.add('visible');
+        triggerBtn.innerHTML = '<i class="bi bi-pencil-map"></i> Change Location';
       });
     });
 
-    const dropAutocomplete = new google.maps.places.Autocomplete(dropInput);
-    dropAutocomplete.addListener("place_changed", () => {
-      const place = dropAutocomplete.getPlace();
-      if (!place.geometry) return;
-      dropLat.value = place.geometry.location.lat();
-      dropLng.value = place.geometry.location.lng();
-      dropMapBox.style.display = "block";
-      if (!dropMap) {
-        dropMap = new google.maps.Map(dropMapBox, {
-          center: place.geometry.location,
-          zoom: 15,
-        });
-      }
-      dropMap.setCenter(place.geometry.location);
-      if (dropMarker) dropMarker.setMap(null);
-      dropMarker = new google.maps.Marker({
-        position: place.geometry.location,
-        map: dropMap,
-      });
-
-      dropInput.addEventListener("click", () => {
-        if (dropLat.value && dropLng.value) {
-          window.open(`https://www.google.com/maps?q=${dropLat.value},${dropLng.value}`, "_blank");
-        }
-      });
+    clearBtn.addEventListener('click', () => {
+      latEl.value = '';
+      lngEl.value = '';
+      locationEl.value = '';
+      textEl.textContent = 'No location chosen';
+      display.classList.remove('visible');
+      triggerBtn.innerHTML = '<i class="bi bi-map"></i> Pick on Map';
     });
-  };
+  }
+
+  wireMapPicker('pickDeliveryBtn', 'clearDeliveryLoc', 'deliveryLocDisplay', 'deliveryLocText',
+                'deliveryLocation', 'deliveryLat', 'deliveryLng');
+  wireMapPicker('pickDropBtn', 'clearDropLoc', 'dropLocDisplay', 'dropLocText',
+                'dropLocation', 'dropLat', 'dropLng');
 
   // ------------------ PRICE CALCULATION ------------------
   const subtotalEl = document.getElementById("subtotal");

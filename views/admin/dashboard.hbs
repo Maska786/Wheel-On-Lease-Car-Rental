@@ -1,58 +1,130 @@
-{{#if admin}}
-<h2 class="mb-4 text-center pt-5">Welcome To Admin Dashboard</h2>
-<nav class="navbar navbar-expand-lg navbar-secondary bg-secondary border-bottom shadow-sm"
-  style="margin-top: 80px; padding-top: 10px; padding-bottom: 10px;">
-  <div class="container justify-content-center">
-    <ul class="navbar-nav text-center gap-4">
-      <li class="nav-item">
-        <a class="nav-link text-white fw-bold" href="/admin/dashboard">Dashboard</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-white fw-bold" href="/admin/add-products">Add Car</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-white fw-bold" href="/admin/view-products">View Products</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-white fw-bold" href="/admin/bookings">Bookings</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-white fw-bold" href="/admin/forms-admin">User Forms</a>
-      </li>
-
-    </ul>
-  </div>
-</nav>
-{{/if}}
-
-<div class="container mt-3 mb-3">
-
-  <div class="row g-4 text-center">
-    <div class="col-md-4">
-      <div class="card shadow-sm border-0">
-        <div class="card-body">
-          <h5 class="card-title">Total Cars</h5>
-          <p class="display-6 fw-bold text-primary">{{stats.totalProducts}}</p>
-        </div>
-      </div>
+<section class="admin-dashboard position-relative" style="min-height: 100vh; background-color: #0d0d0d; color: #fff; padding-top: 120px;">
+    <!-- Abstract background elements for premium feel -->
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 0; pointer-events: none;">
+        <div style="position: absolute; top: -10%; left: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(212,175,55,0.05) 0%, transparent 60%);"></div>
+        <div style="position: absolute; bottom: -10%; right: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(212,175,55,0.05) 0%, transparent 60%);"></div>
     </div>
 
-    <div class="col-md-4">
-      <div class="card shadow-sm border-0">
-        <div class="card-body">
-          <h5 class="card-title">Total Users</h5>
-          <p class="display-6 fw-bold text-success">{{stats.totalUsers}}</p>
+    <div class="container position-relative" style="z-index: 1;">
+        <!-- Header Section -->
+        <div class="row mb-5 text-center">
+            <div class="col-12">
+                <h5 class="section-subtitle mb-2" style="color: var(--gold-accent); letter-spacing: 2px;">OVERVIEW</h5>
+                <h1 class="fw-bold section-title mb-3" style="font-family: 'Outfit', sans-serif;">Admin Dashboard</h1>
+                <div class="divider mx-auto" style="width: 60px; height: 3px; background: var(--gold-accent); border-radius: 2px;"></div>
+            </div>
         </div>
-      </div>
-    </div>
 
-    <div class="col-md-4">
-      <div class="card shadow-sm border-0">
-        <div class="card-body">
-          <h5 class="card-title">Total Bookings</h5>
-          <p class="display-6 fw-bold text-danger">{{stats.totalBookings}}</p>
+        <!-- Premium Admin Navbar -->
+        {{#if admin}}
+        <div class="glass-card mb-5 w-100" style="border-radius: 1rem; border: 1px solid rgba(212, 175, 55, 0.2); background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px);">
+            <nav class="navbar navbar-expand-lg navbar-dark px-4 py-3">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#adminNavbar" style="border-color: rgba(212,175,55,0.5);">
+                    <i class="fas fa-bars" style="color: var(--gold-accent);"></i>
+                </button>
+                <div class="collapse navbar-collapse justify-content-center" id="adminNavbar">
+                    <ul class="navbar-nav gap-2 gap-lg-4 text-center">
+                        <li class="nav-item">
+                            <a class="nav-link text-white fw-bold active-admin-link" href="/admin/dashboard" style="color: var(--gold-accent) !important; border-bottom: 2px solid var(--gold-accent);">
+                                <i class="fas fa-chart-pie me-2"></i>Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white hover-gold fw-bold" href="/admin/add-products"><i class="fas fa-plus-circle me-2"></i>Add Car</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white hover-gold fw-bold" href="/admin/view-products"><i class="fas fa-car-side me-2"></i>View Fleet</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white hover-gold fw-bold" href="/admin/bookings"><i class="fas fa-calendar-check me-2"></i>Bookings</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white hover-gold fw-bold" href="/admin/forms"><i class="fas fa-envelope-open-text me-2"></i>Submissions</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white hover-gold fw-bold" href="/admin/users"><i class="fas fa-users me-2"></i>Users</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
         </div>
-      </div>
+        {{/if}}
+
+        <!-- Stats Section -->
+        <div class="row g-4 pb-5">
+            <!-- Total Cars -->
+            <div class="col-md-6 col-lg-3">
+                <div class="glass-card stat-card h-100 text-center p-4 position-relative overflow-hidden" style="border-radius: 1rem; border: 1px solid rgba(212, 175, 55, 0.2); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                    <div class="stat-icon-bg"><i class="fas fa-car-side"></i></div>
+                    <div class="position-relative z-1">
+                        <h6 class="text-uppercase mb-3" style="letter-spacing: 1px; color: rgba(255,255,255,0.7); font-size: 0.9rem;">Total Fleet Cars</h6>
+                        <h2 class="display-4 fw-bold mb-0" style="color: var(--gold-accent);">{{stats.totalProducts}}</h2>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Users -->
+            <div class="col-md-6 col-lg-3">
+                <div class="glass-card stat-card h-100 text-center p-4 position-relative overflow-hidden" style="border-radius: 1rem; border: 1px solid rgba(212, 175, 55, 0.2); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                    <div class="stat-icon-bg"><i class="fas fa-users"></i></div>
+                    <div class="position-relative z-1">
+                        <h6 class="text-uppercase mb-3" style="letter-spacing: 1px; color: rgba(255,255,255,0.7); font-size: 0.9rem;">Registered Users</h6>
+                        <h2 class="display-4 fw-bold mb-0" style="color: #4CAF50;">{{stats.totalUsers}}</h2>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Bookings -->
+            <div class="col-md-6 col-lg-3">
+                <div class="glass-card stat-card h-100 text-center p-4 position-relative overflow-hidden" style="border-radius: 1rem; border: 1px solid rgba(212, 175, 55, 0.2); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                    <div class="stat-icon-bg"><i class="fas fa-calendar-check"></i></div>
+                    <div class="position-relative z-1">
+                        <h6 class="text-uppercase mb-3" style="letter-spacing: 1px; color: rgba(255,255,255,0.7); font-size: 0.9rem;">Total Bookings</h6>
+                        <h2 class="display-4 fw-bold mb-0" style="color: #f44336;">{{stats.totalBookings}}</h2>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Forms -->
+            <div class="col-md-6 col-lg-3">
+                <div class="glass-card stat-card h-100 text-center p-4 position-relative overflow-hidden" style="border-radius: 1rem; border: 1px solid rgba(212, 175, 55, 0.2); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                    <div class="stat-icon-bg"><i class="fas fa-envelope-open-text"></i></div>
+                    <div class="position-relative z-1">
+                        <h6 class="text-uppercase mb-3" style="letter-spacing: 1px; color: rgba(255,255,255,0.7); font-size: 0.9rem;">Contact Forms</h6>
+                        <h2 class="display-4 fw-bold mb-0" style="color: #2196F3;">{{stats.totalForms}}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
-  </div>
-</div>
+</section>
+
+<style>
+/* Dashboard specific styles */
+.admin-dashboard .nav-link.hover-gold:hover {
+    color: var(--gold-accent) !important;
+    transform: translateY(-2px);
+}
+.admin-dashboard .nav-link {
+    transition: all 0.3s ease;
+}
+.stat-card:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 10px 25px rgba(212, 175, 55, 0.15) !important;
+}
+.stat-icon-bg {
+    position: absolute;
+    right: -10%;
+    bottom: -15%;
+    font-size: 8rem;
+    color: rgba(255,255,255,0.03);
+    z-index: 0;
+    transform: rotate(-15deg);
+    transition: all 0.4s ease;
+}
+.stat-card:hover .stat-icon-bg {
+    color: rgba(212, 175, 55, 0.08);
+    transform: rotate(0deg) scale(1.1);
+}
+</style>

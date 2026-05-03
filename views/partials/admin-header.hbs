@@ -31,15 +31,20 @@
                     </li>
 
                     {{#if admin}}
-                        <li class="nav-item admin px-3">
-                            <h6 class="m-0 text-white">Admin: {{admin.name}}</h6>
+                        <li class="nav-item admin px-3 d-flex align-items-center">
+                            <a href="/admin/dashboard" class="text-decoration-none hover-gold m-0">
+                                <h6 class="m-0 text-white me-3" style="transition: color 0.3s ease;">Admin: {{admin.name}}</h6>
+                            </a>
+                            <a href="/admin/change-password" class="btn btn-sm btn-outline-light rounded-circle p-2 mx-2 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; border-color: rgba(212, 175, 55, 0.5); color: var(--gold-accent);" title="Security Settings">
+                                <i class="fas fa-cog"></i>
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/admin/logout" class="btn btn-sm btn-danger">Logout</a>
+                            <a href="/admin/logout" class="btn btn-sm btn-danger fw-bold rounded-pill px-3">Logout</a>
                         </li>
                     {{else}}
                         <li class="p-2">
-                            <a href="/login" class="btn btn-light">Login</a>
+                            <a href="/login" class="btn btn-light rounded-pill px-4 fw-bold">Login</a>
                         </li>
                     {{/if}}
                 </ul>

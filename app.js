@@ -11,7 +11,11 @@ const createError = require('http-errors');
 const fileUpload = require('express-fileupload');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
+const passport = require('passport');
 const connectDB = require('./config/mongoose');
+
+// Passport config
+require('./config/passport')(passport);
 
 
 // Connect to MongoDB
@@ -62,6 +66,10 @@ app.use(session({
     }),
     cookie: { maxAge: 60 * 60 * 1000 } // 1 hour
 }));
+
+// Initialize Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Routes
 app.use('/', userRouter);

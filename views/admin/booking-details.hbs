@@ -1,0 +1,152 @@
+<section class="admin-dashboard position-relative" style="min-height: 100vh; background-color: #0d0d0d !important; color: #ffffff !important; padding-top: 120px; padding-bottom: 50px;">
+    <!-- Abstract background elements for premium feel -->
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 0; pointer-events: none;">
+        <div style="position: absolute; top: -10%; left: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 60%);"></div>
+        <div style="position: absolute; bottom: -10%; right: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 60%);"></div>
+    </div>
+
+    <!-- Container -->
+    <div class="container-fluid px-4 px-md-5 position-relative" style="z-index: 1;">
+        <!-- Header Section -->
+        <div class="row mb-5 text-center">
+            <div class="col-12">
+                <a href="/admin/bookings" class="btn btn-outline-light rounded-pill mb-3 px-4 shadow-sm" style="font-size:0.9rem;"><i class="fas fa-arrow-left me-2"></i>Back to Bookings</a>
+                <h5 class="section-subtitle mb-2" style="color: var(--gold-accent); letter-spacing: 2px;">BOOKING OVERVIEW</h5>
+                <h1 class="fw-bold section-title mb-3 text-white" style="font-family: 'Outfit', sans-serif;">Detailed Itinerary</h1>
+                <div class="divider mx-auto" style="width: 60px; height: 3px; background: var(--gold-accent); border-radius: 2px;"></div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center pb-5">
+            <div class="col-12 col-xl-10">
+                <div class="glass-card shadow-lg p-0 overflow-hidden" style="border-radius: 1.5rem; border: 1px solid rgba(212, 175, 55, 0.4); background: #121212;">
+                    <div class="row g-0">
+                        <!-- Left Panel: Core Booking Info & Vehicle -->
+                        <div class="col-lg-5 p-4 p-md-5 d-flex flex-column position-relative" style="background: rgba(0,0,0,0.5); border-right: 1px solid rgba(255,255,255,0.05);">
+                            <h4 class="text-white mb-4 fw-bold" style="font-family: 'Outfit'; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px;">
+                                <i class="fas fa-car-side me-2" style="color: var(--gold-accent);"></i> Vehicle Chosen
+                            </h4>
+                            
+                            <div class="img-wrapper rounded-4 shadow-lg overflow-hidden mb-4" style="width: 100%; aspect-ratio: 16/10; border: 2px solid rgba(212, 175, 55, 0.2); background-color: #000;">
+                                <img src="{{booking.car.image}}" alt="{{booking.car.altText}}" class="img-fluid w-100 h-100" style="object-fit: cover;">
+                            </div>
+                            
+                            <h3 class="fw-bold text-white mb-1">{{booking.car.carName}}</h3>
+                            <span class="badge rounded-pill mb-4" style="background: rgba(212, 175, 55, 0.15); color: var(--gold-accent); border: 1px solid rgba(212, 175, 55, 0.3); width: fit-content;">{{booking.car.carCategory}}</span>
+                            
+                            <div class="mt-auto pt-4" style="border-top: 1px solid rgba(255,255,255,0.1);">
+                                <h5 class="fw-bold mb-3" style="color: var(--gold-accent);"><i class="fas fa-money-bill-wave me-2"></i>Price Structure</h5>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="text-white-50">Daily Rate:</span>
+                                    <span class="text-white fw-bold">AED {{booking.car.priceDaily}}</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="text-white-50">Weekly Rate:</span>
+                                    <span class="text-white fw-bold">AED {{booking.car.priceWeekly}}</span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span class="text-white-50">Monthly Rate:</span>
+                                    <span class="text-white fw-bold">AED {{booking.car.priceMonthly}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Panel: Client & Schedule Details -->
+                        <div class="col-lg-7 p-4 p-md-5">
+                            <div class="d-flex justify-content-between align-items-center mb-4 pb-3" style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                <h4 class="text-white mb-0 fw-bold" style="font-family: 'Outfit';">
+                                    <i class="fas fa-file-contract me-2" style="color: var(--gold-accent);"></i> Assignment Details
+                                </h4>
+                                <!-- Current Status control -->
+                                <form action="/admin/update-booking-status/{{booking._id}}" method="POST" class="d-inline-flex align-items-center">
+                                    <span class="text-white-50 me-2 small">Status: </span>
+                                    <select name="status" class="form-select form-select-sm text-white rounded-pill text-center font-monospace" style="background: rgba(212, 175, 55, 0.15); border: 1px solid var(--gold-accent); color: var(--gold-accent) !important; cursor: pointer; width: 140px; box-shadow: none;" onchange="this.form.submit()">
+                                        {{#select booking.status}}
+                                        <option value="Pending" class="text-dark">Pending</option>
+                                        <option value="Confirmed" class="text-dark">Confirmed</option>
+                                        <option value="Processing" class="text-dark">Processing</option>
+                                        <option value="Completed" class="text-dark">Completed</option>
+                                        <option value="Cancelled" class="text-dark">Cancelled</option>
+                                        {{/select}}
+                                    </select>
+                                </form>
+                            </div>
+                            
+                            <div class="row g-4 mb-5">
+                                <!-- Client Info -->
+                                <div class="col-md-6">
+                                    <div class="detail-box p-3 rounded" style="background: rgba(255,255,255,0.03); height: 100%;">
+                                        <h6 class="text-uppercase mb-3" style="color: var(--gold-accent); font-size: 0.8rem; letter-spacing: 1px;">Primary Renter</h6>
+                                        <h5 class="fw-bold mb-1 text-white">{{booking.user.name}}</h5>
+                                        <p class="mb-1 text-white-50 small"><i class="fas fa-envelope me-2"></i>{{booking.user.email}}</p>
+                                        <p class="mb-0 text-white-50 small"><i class="fas fa-phone me-2"></i>{{booking.phone}}</p>
+                                    </div>
+                                </div>
+                                <!-- Itinerary -->
+                                <div class="col-md-6">
+                                    <div class="detail-box p-3 rounded" style="background: rgba(255,255,255,0.03); height: 100%;">
+                                        <h6 class="text-uppercase mb-3" style="color: var(--gold-accent); font-size: 0.8rem; letter-spacing: 1px;">Timeframe</h6>
+                                        <div class="d-flex align-items-center mb-2">
+                                            <span class="badge me-2" style="background: rgba(76, 175, 80, 0.2); color: #4CAF50; border: 1px solid #4CAF50;">Pickup</span>
+                                            <span class="text-white fw-bold">{{booking.pickupDate}}</span>
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <span class="badge me-2" style="background: rgba(244, 67, 54, 0.2); color: #f44336; border: 1px solid #f44336;">Return</span>
+                                            <span class="text-white fw-bold">{{booking.returnDate}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row g-4 mb-5">
+                                <div class="col-12">
+                                    <h6 class="text-uppercase mb-3" style="color: var(--gold-accent); font-size: 0.8rem; letter-spacing: 1px;">Official Verification Documents</h6>
+                                    <div class="d-flex gap-3 flex-wrap">
+                                        <!-- License -->
+                                        <div class="flex-grow-1 p-3 rounded d-flex justify-content-between align-items-center" style="background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.2);">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fas fa-id-card fa-2x me-3" style="color: rgba(255,255,255,0.5);"></i>
+                                                <div>
+                                                    <h6 class="mb-0 text-white">Driving License</h6>
+                                                    <small class="text-white-50">Uploaded explicitly</small>
+                                                </div>
+                                            </div>
+                                            <!-- The download attribute is implemented here! -->
+                                            <a href="{{booking.drivingLicense}}" download="License_{{booking.user.name}}" class="btn btn-outline-light rounded-pill px-4">
+                                                <i class="fas fa-download me-2"></i>Download
+                                            </a>
+                                        </div>
+
+                                        <!-- ID Passport -->
+                                        <div class="flex-grow-1 p-3 rounded d-flex justify-content-between align-items-center" style="background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.2);">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fas fa-passport fa-2x me-3" style="color: rgba(255,255,255,0.5);"></i>
+                                                <div>
+                                                    <h6 class="mb-0 text-white">Govt. ID/Passport</h6>
+                                                    <small class="text-white-50">Uploaded explicitly</small>
+                                                </div>
+                                            </div>
+                                            <!-- The download attribute is implemented here! -->
+                                            <a href="{{booking.idDocument}}" download="ID_{{booking.user.name}}" class="btn btn-outline-light rounded-pill px-4">
+                                                <i class="fas fa-download me-2"></i>Download
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-end pt-3" style="border-top: 1px solid rgba(255,255,255,0.1);">
+                                <form action="/admin/delete-booking/{{booking._id}}" method="POST" onsubmit="return confirm('🚨 Action irreversible. Are you absolutely sure you want to permanently delete this booking?')">
+                                    <button type="submit" class="btn btn-outline-danger px-5 py-2 fw-bold" style="border-width: 2px;">
+                                        <i class="fas fa-trash-alt me-2"></i> DESTROY BOOKING RECORD
+                                    </button>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

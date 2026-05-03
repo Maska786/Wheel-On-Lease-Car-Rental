@@ -1,74 +1,225 @@
-<section>
-  <div class="container-fluid">
-    <form action="/admin/edit-product/{{product._id}}" method="POST" enctype="multipart/form-data">
-      <div class="row justify-content-center pt-5 mb-4">
-        <div class="col-md-4 col-12 text-center">
-          <h1 class="border border-2 border-white p-2">Edit Car</h1>
+<section class="admin-dashboard position-relative" style="min-height: 100vh; background-color: #0d0d0d !important; color: #ffffff !important; padding-top: 120px; padding-bottom: 50px;">
+    <!-- Abstract background elements for premium feel -->
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 0; pointer-events: none;">
+        <div style="position: absolute; top: -10%; left: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 60%);"></div>
+        <div style="position: absolute; bottom: -10%; right: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 60%);"></div>
+    </div>
+
+    <!-- Container -->
+    <div class="container-fluid px-4 px-md-5 position-relative" style="z-index: 1;">
+        <!-- Header Section -->
+        <div class="row mb-5 text-center">
+            <div class="col-12">
+                <h5 class="section-subtitle mb-2" style="color: var(--gold-accent); letter-spacing: 2px;">FLEET MANAGEMENT</h5>
+                <h1 class="fw-bold section-title mb-3 text-white" style="font-family: 'Outfit', sans-serif;">Modify Vehicle Specs</h1>
+                <div class="divider mx-auto" style="width: 60px; height: 3px; background: var(--gold-accent); border-radius: 2px;"></div>
+            </div>
         </div>
-      </div>
 
-      <div class="row justify-content-center">
-        <div class="col-md-6 col-12">
-          <!-- Car Name -->
-          <div class="mb-3">
-            <label for="carName" class="form-label">Car Name</label>
-            <input type="text" class="form-control" id="carName" name="carName" value="{{product.carName}}" required>
-          </div>
-
-          <!-- Car Image -->
-          <div class="mb-3">
-            <label for="carImage" class="form-label">New Car Image (Optional)</label>
-            <img src="{{product.image}}" alt="{{product.altText}}" class="img-thumbnail mb-2" style="max-width: 150px;">
-            <input class="form-control" type="file" id="carImage" name="CarImage" accept="image/*">
-          </div>
-
-          <!-- Alt Text -->
-          <div class="mb-3">
-            <label for="altText" class="form-label">Image Alt Text</label>
-            <input type="text" class="form-control" id="altText" name="altText" value="{{product.altText}}">
-          </div>
-
-          <!-- Car Description -->
-          <div class="mb-3">
-            <label for="carDescription" class="form-label">Description</label>
-            <textarea class="form-control" id="carDescription" name="carDescription" rows="3" required>{{product.carDescription}}</textarea>
-          </div>
-
-          <!-- Price Daily -->
-          <div class="mb-3">
-            <label for="priceDaily" class="form-label">Price (Daily)</label>
-            <input type="number" class="form-control" id="priceDaily" name="priceDaily" step="0.01" value="{{product.priceDaily}}" required>
-          </div>
-
-          <!-- Price Weekly -->
-          <div class="mb-3">
-            <label for="priceWeekly" class="form-label">Price (Weekly)</label>
-            <input type="number" class="form-control" id="priceWeekly" name="priceWeekly" step="0.01" value="{{product.priceWeekly}}" required>
-          </div>
-
-          <!-- Price Monthly -->
-          <div class="mb-3">
-            <label for="priceMonthly" class="form-label">Price (Monthly)</label>
-            <input type="number" class="form-control" id="priceMonthly" name="priceMonthly" step="0.01" value="{{product.priceMonthly}}" required>
-          </div>
-
-          <!-- Category -->
-          <div class="mb-4">
-            <label for="carCategory" class="form-label">Category</label>
-            <select class="form-select" id="carCategory" name="carCategory" required>
-              {{#select product.carCategory}}
-                <option value="SUV">SUV</option>
-                <option value="Sedan">Sedan</option>
-              {{/select}}
-            </select>
-          </div>
-
-          <!-- Submit Button -->
-          <div class="d-grid pb-5">
-            <button type="submit" class="btn btn-warning">Update Car</button>
-          </div>
+        <!-- Premium Admin Navbar -->
+        {{#if admin}}
+        <div class="glass-card mb-5 mx-auto" style="max-width: 900px; border-radius: 1rem; border: 1px solid rgba(212, 175, 55, 0.4); background: #1a1a1a;">
+            <nav class="navbar navbar-expand-lg navbar-dark px-4 py-3">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#adminNavbar" style="border-color: rgba(212,175,55,0.5);">
+                    <i class="fas fa-bars" style="color: var(--gold-accent);"></i>
+                </button>
+                <div class="collapse navbar-collapse justify-content-center" id="adminNavbar">
+                    <ul class="navbar-nav gap-2 gap-lg-4 text-center">
+                        <li class="nav-item">
+                            <a class="nav-link text-white hover-gold fw-bold" href="/admin/dashboard"><i class="fas fa-chart-pie me-2"></i>Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white hover-gold fw-bold" href="/admin/add-products"><i class="fas fa-plus-circle me-2"></i>Add Car</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white hover-gold fw-bold" href="/admin/view-products"><i class="fas fa-car-side me-2"></i>View Fleet</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white hover-gold fw-bold" href="/admin/bookings"><i class="fas fa-calendar-check me-2"></i>Bookings</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white hover-gold fw-bold" href="/admin/forms"><i class="fas fa-envelope-open-text me-2"></i>Submissions</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white hover-gold fw-bold" href="/admin/users"><i class="fas fa-users me-2"></i>Users</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
         </div>
-      </div>
-    </form>
-  </div>
+        {{/if}}
+
+        <!-- Unique Edit Form Layout -->
+        <div class="row justify-content-center pb-5">
+            <div class="col-12 col-xl-10">
+                <div class="glass-card shadow-lg p-0 overflow-hidden" style="border-radius: 1.5rem; border: 1px solid rgba(212, 175, 55, 0.4); background: #121212;">
+                    
+                    <div class="row g-0">
+                        <!-- Left Panel: Visuals Display -->
+                        <div class="col-lg-5 p-4 p-md-5 d-flex flex-column justify-content-center position-relative" style="background: rgba(0,0,0,0.5); border-right: 1px solid rgba(255,255,255,0.05);">
+                            
+                            <h4 class="text-white mb-4 fw-bold" style="font-family: 'Outfit';"><i class="fas fa-camera-retro me-2" style="color: var(--gold-accent);"></i> Current Identity</h4>
+                            
+                            <div class="img-wrapper rounded-4 shadow-lg overflow-hidden mb-4 position-relative edit-img-box" style="width: 100%; aspect-ratio: 16/11; border: 2px solid rgba(212, 175, 55, 0.2); background-color: #000;">
+                                <img src="{{product.image}}" alt="{{product.altText}}" class="img-fluid w-100 h-100" style="object-fit: cover; transition: transform 0.5s ease;">
+                                <div class="position-absolute bottom-0 start-0 w-100 p-3" style="background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);">
+                                    <h5 class="fw-bold mb-1" style="color: var(--gold-accent);">{{product.carName}}</h5>
+                                    <p class="m-0 small text-white-50"><i class="fas fa-file-image me-1"></i> Active Asset</p>
+                                </div>
+                            </div>
+                            
+                            <div class="alert px-3 py-3" style="background: rgba(212, 175, 55, 0.05); border: 1px dashed rgba(212, 175, 55, 0.5); border-radius: 10px;">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-info-circle fa-2x me-3" style="color: var(--gold-accent);"></i>
+                                    <p class="mb-0 small text-light" style="opacity: 0.8;">Leave the 'New Car Image' field blank on the right to keep this existing photo. Uploading a new file will permanently overwrite it!</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Right Panel: Data Editor Form -->
+                        <div class="col-lg-7 p-4 p-md-5">
+                            <form action="/admin/edit-product/{{product._id}}" method="POST" enctype="multipart/form-data">
+                                <h4 class="text-white mb-4 fw-bold" style="font-family: 'Outfit';"><i class="fas fa-sliders-h me-2" style="color: var(--gold-accent);"></i> Configurations</h4>
+                                
+                                <div class="row g-4">
+                                    <!-- Car Name -->
+                                    <div class="col-md-6">
+                                        <div class="form-floating-premium">
+                                            <input type="text" class="form-control form-control-premium text-white" placeholder=" " name="carName" id="carName" value="{{product.carName}}" required />
+                                            <label for="carName"><i class="fas fa-car-side me-2"></i>Car Name & Model</label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Category -->
+                                    <div class="col-md-6">
+                                        <div class="form-floating-premium">
+                                            <select class="form-select form-control-premium text-white" id="carCategory" name="carCategory" required style="background-color: transparent;">
+                                                {{#select product.carCategory}}
+                                                <option value="SUV" class="text-dark">SUV</option>
+                                                <option value="Sedan" class="text-dark">Sedan</option>
+                                                <option value="Luxury" class="text-dark">Luxury</option>
+                                                <option value="Exotic" class="text-dark">Exotic</option>
+                                                <option value="Economy" class="text-dark">Economy</option>
+                                                {{/select}}
+                                            </select>
+                                            <label for="carCategory"><i class="fas fa-tags me-2"></i>Category</label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Car Image Upload (Optional) -->
+                                    <div class="col-12">
+                                        <div class="form-floating-premium position-relative">
+                                            <input class="form-control form-control-premium text-white" type="file" id="carImage" name="CarImage" accept="image/*" style="padding-top: 2rem;">
+                                            <label for="carImage" style="top: -0.5rem; font-size: 0.85rem;"><i class="fas fa-upload me-2"></i>New Car Image (Optional)</label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Alt Text -->
+                                    <div class="col-12">
+                                        <div class="form-floating-premium">
+                                            <input type="text" class="form-control form-control-premium text-white" placeholder=" " name="altText" id="altText" value="{{product.altText}}" />
+                                            <label for="altText"><i class="fas fa-closed-captioning me-2"></i>Image Alt Text</label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Car Description -->
+                                    <div class="col-12">
+                                        <div class="form-floating-premium">
+                                            <textarea class="form-control form-control-premium text-white" placeholder=" " name="carDescription" id="carDescription" style="height: 120px" required>{{product.carDescription}}</textarea>
+                                            <label for="carDescription"><i class="fas fa-align-left me-2"></i>Detailed Description</label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Price Daily -->
+                                    <div class="col-md-4">
+                                        <div class="form-floating-premium">
+                                            <input type="number" class="form-control form-control-premium text-white" placeholder=" " name="priceDaily" id="priceDaily" step="0.01" value="{{product.priceDaily}}" required />
+                                            <label for="priceDaily">Daily Rate (AED)</label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Price Weekly -->
+                                    <div class="col-md-4">
+                                        <div class="form-floating-premium">
+                                            <input type="number" class="form-control form-control-premium text-white" placeholder=" " name="priceWeekly" id="priceWeekly" step="0.01" value="{{product.priceWeekly}}" required />
+                                            <label for="priceWeekly">Weekly Rate (AED)</label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Price Monthly -->
+                                    <div class="col-md-4">
+                                        <div class="form-floating-premium">
+                                            <input type="number" class="form-control form-control-premium text-white" placeholder=" " name="priceMonthly" id="priceMonthly" step="0.01" value="{{product.priceMonthly}}" required />
+                                            <label for="priceMonthly">Monthly Rate (AED)</label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Submit Button -->
+                                    <div class="col-12 mt-5 text-end">
+                                        <a href="/admin/view-products" class="btn btn-outline-light me-3 px-4 py-2 rounded-pill fw-bold" style="border-width: 2px;">Discard Changes</a>
+                                        <button type="submit" class="btn px-5 py-2 fw-bold" style="letter-spacing: 1px; color: #000; background-color: var(--gold-accent, #D4AF37); border-radius: 50rem;">
+                                            <i class="fas fa-sync-alt me-2"></i> UPDATE VEHICLE
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
 </section>
+
+<link rel="stylesheet" href="/stylesheets/login.css">
+<style>
+/* Dashboard specific styles */
+.admin-dashboard .nav-link.hover-gold:hover {
+    color: var(--gold-accent) !important;
+    transform: translateY(-2px);
+}
+.admin-dashboard .nav-link {
+    transition: all 0.3s ease;
+}
+
+/* Image zoom effect on hover */
+.edit-img-box:hover img {
+    transform: scale(1.05);
+}
+
+.form-floating-premium label {
+    color: rgba(255, 255, 255, 0.6);
+    background: transparent !important;
+}
+
+.form-floating-premium > .form-control:focus ~ label,
+.form-floating-premium > .form-control:not(:placeholder-shown) ~ label,
+.form-floating-premium > .form-select ~ label {
+    color: var(--gold-accent) !important;
+    transform: scale(.85) translateY(-2rem) translateX(0.15rem);
+}
+
+.form-select.form-control-premium {
+    padding-top: 1.625rem;
+    padding-bottom: 0.625rem;
+}
+
+/* File input special fix */
+input[type="file"].form-control-premium::file-selector-button {
+    background-color: var(--gold-accent);
+    color: #fff;
+    border: none;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    margin-right: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+input[type="file"].form-control-premium::file-selector-button:hover {
+    background-color: #ffe066;
+}
+</style>

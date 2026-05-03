@@ -7,8 +7,7 @@ const Product = require("../models/product-models");
 const Booking = require("../models/booking");
 const Form = require("../models/form-model");
 const Lead = require("../models/Lead");
-
-
+const passport = require("passport");
 
 // LOGIN CHECK MIDDLEWARE
 const verifyUser = (req, res, next) => {
@@ -172,9 +171,35 @@ router.post("/signup", async (req, res) => {
   } catch (err) {
     console.error(err);
     req.session.signupError = "Something went wrong";
-    res.redirect("/signup");
   }
 });
+
+// ---------------- OAUTH ROUTES ----------------
+router.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
+
+router.get("/auth/google/callback", 
+  passport.authenticate("google", { failureRedirect: "/login?error=google_auth_failed" }),
+  (req, res) => {
+    // Sync passport user into custom session format
+    req.session.user = req.user;
+    const redirectUrl = req.session.loginRedirect || "/";
+    req.session.loginRedirect = null;
+    res.redirect(redirectUrl);
+  }
+);
+
+router.get("/auth/facebook", passport.authenticate("facebook", { scope: ["email"] }));
+
+router.get("/auth/facebook/callback",
+  passport.authenticate("facebook", { failureRedirect: "/login?error=facebook_auth_failed" }),
+  (req, res) => {
+    // Sync passport user into custom session format
+    req.session.user = req.user;
+    const redirectUrl = req.session.loginRedirect || "/";
+    req.session.loginRedirect = null;
+    res.redirect(redirectUrl);
+  }
+);
 
 router.get("/logout", (req, res) => {
   req.session.destroy(() => res.redirect("/"));
@@ -204,11 +229,15 @@ router.get("/booking/:carId", verifyUser, async (req, res) => {
   try {
     const car = await productHelpers.getProductDetails(req.params.carId);
     
-    // Check for pre-fill data from lead capture
+    // Pre-fill from logged-in user session first
+    const sessionUser = req.session.user || {};
     const leadData = req.session.tempLeadData || {};
+
+    // Split session user's name into first/last
     let firstName = "", lastName = "";
-    if (leadData.fullName) {
-      const parts = leadData.fullName.split(" ");
+    const displayName = sessionUser.name || leadData.fullName || "";
+    if (displayName) {
+      const parts = displayName.split(" ");
       firstName = parts[0] || "";
       lastName = parts.slice(1).join(" ") || "";
     }
@@ -219,6 +248,7 @@ router.get("/booking/:carId", verifyUser, async (req, res) => {
       preFill: {
         firstName,
         lastName,
+        email: sessionUser.email || "",
         phoneNumber: leadData.phoneNumber || ""
       },
       user: req.session.user,
@@ -226,7 +256,7 @@ router.get("/booking/:carId", verifyUser, async (req, res) => {
       stripePublishableKey: process.env.STRIPE_PUBLISHABLE_KEY 
     });
     
-    // Clear temp data
+    // Clear temp lead data
     delete req.session.tempLeadData;
   } catch (err) {
     console.error(err);

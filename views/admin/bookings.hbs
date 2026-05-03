@@ -1,65 +1,139 @@
-{{#if admin}}
-<h2 class="mb-4 text-center pt-5">Welcome To Admin Dashboard</h2>
-<nav class="navbar navbar-expand-lg navbar-secondary bg-secondary border-bottom shadow-sm"
-  style="margin-top: 80px; padding-top: 10px; padding-bottom: 10px;">
-  <div class="container justify-content-center">
-    <ul class="navbar-nav text-center gap-4">
-      <li class="nav-item">
-        <a class="nav-link text-white fw-bold" href="/admin/dashboard">Dashboard</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-white fw-bold" href="/admin/add-products">Add Car</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-white fw-bold" href="/admin/view-products">View Products</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-white fw-bold" href="/admin/bookings">Bookings</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-white fw-bold" href="/admin/forms">User Forms</a>
-      </li>
+<section class="admin-dashboard position-relative" style="min-height: 100vh; background-color: #0d0d0d !important; color: #ffffff !important; padding-top: 120px; padding-bottom: 50px;">
+    <!-- Abstract background elements for premium feel -->
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 0; pointer-events: none;">
+        <div style="position: absolute; top: -10%; left: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 60%);"></div>
+        <div style="position: absolute; bottom: -10%; right: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 60%);"></div>
+    </div>
 
-    </ul>
-  </div>
-</nav>
-{{/if}}
+    <!-- Container -->
+    <div class="container-fluid px-4 px-md-5 position-relative" style="z-index: 1;">
+        <!-- Header Section -->
+        <div class="row mb-5 text-center">
+            <div class="col-12">
+                <h5 class="section-subtitle mb-2" style="color: var(--gold-accent); letter-spacing: 2px;">MANAGEMENT</h5>
+                <h1 class="fw-bold section-title mb-3 text-white" style="font-family: 'Outfit', sans-serif;">All Bookings</h1>
+                <div class="divider mx-auto" style="width: 60px; height: 3px; background: var(--gold-accent); border-radius: 2px;"></div>
+            </div>
+        </div>
 
-<h1 class="text-center my-4">All Bookings</h1>
+        <!-- Premium Admin Navbar -->
+        {{#if admin}}
+        <div class="glass-card mb-5 mx-auto" style="max-width: 900px; border-radius: 1rem; border: 1px solid rgba(212, 175, 55, 0.4); background: #1a1a1a;">
+            <nav class="navbar navbar-expand-lg navbar-dark px-4 py-3">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#adminNavbar" style="border-color: rgba(212,175,55,0.5);">
+                    <i class="fas fa-bars" style="color: var(--gold-accent);"></i>
+                </button>
+                <div class="collapse navbar-collapse justify-content-center" id="adminNavbar">
+                    <ul class="navbar-nav gap-2 gap-lg-4 text-center">
+                        <li class="nav-item">
+                            <a class="nav-link text-white hover-gold fw-bold" href="/admin/dashboard"><i class="fas fa-chart-pie me-2"></i>Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white hover-gold fw-bold" href="/admin/add-products"><i class="fas fa-plus-circle me-2"></i>Add Car</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white hover-gold fw-bold" href="/admin/view-products"><i class="fas fa-car-side me-2"></i>View Fleet</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white fw-bold active-admin-link" href="/admin/bookings" style="color: var(--gold-accent) !important; border-bottom: 2px solid var(--gold-accent);">
+                                <i class="fas fa-calendar-check me-2"></i>Bookings
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white hover-gold fw-bold" href="/admin/forms"><i class="fas fa-envelope-open-text me-2"></i>Submissions</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white hover-gold fw-bold" href="/admin/users"><i class="fas fa-users me-2"></i>Users</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        {{/if}}
 
-<div class="container">
-  {{#if bookings.length}}
-  <table class="table table-bordered table-striped">
-    <thead class="table-dark">
-      <tr>
-        <th>Sl No.</th>
-        <th>User</th>
-        <th>Car</th>
-        <th>Pickup Date</th>
-        <th>Return Date</th>
-        <th>Phone</th>
-        <th>Driving License</th>
-        <th>ID Document</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each bookings}}
-      <tr>
-        <td>{{addOne @index}}</td>
-        <td>{{this.user.name}} ({{this.user.email}})</td>
-        <td>{{this.car.carName}}</td>
-        <td>{{this.pickupDate}}</td>
-        <td>{{this.returnDate}}</td>
-        <td>{{this.phone}}</td>
-        <td><a href="{{this.drivingLicense}}" target="_blank">View</a></td>
-        <td><a href="{{this.idDocument}}" target="_blank">View</a></td>
-        <td>{{this.status}}</td>
-      </tr>
-      {{/each}}
-    </tbody>
-  </table>
-  {{else}}
-  <p>No bookings yet.</p>
-  {{/if}}
-</div>
+        <!-- Table Section -->
+        <div class="glass-card p-4 rounded-4 shadow-lg mx-auto" style="max-width: 1400px; border: 1px solid rgba(212, 175, 55, 0.4); background: #141414;">
+            <div class="table-responsive">
+                <table class="table table-borderless table-hover align-middle premium-table text-white mb-0">
+                    <thead style="border-bottom: 2px solid var(--gold-accent);">
+                        <tr>
+                            <th class="py-3 px-4 text-uppercase" style="color: var(--gold-accent); font-size: 0.85rem; letter-spacing: 1px;">No.</th>
+                            <th class="py-3 px-4 text-uppercase" style="color: var(--gold-accent); font-size: 0.85rem; letter-spacing: 1px;">Identity Overview</th>
+                            <th class="py-3 px-4 text-uppercase" style="color: var(--gold-accent); font-size: 0.85rem; letter-spacing: 1px;">Asset Requested</th>
+                            <th class="py-3 px-4 text-uppercase" style="color: var(--gold-accent); font-size: 0.85rem; letter-spacing: 1px;">Current Status</th>
+                            <th class="py-3 px-4 text-uppercase text-end" style="color: var(--gold-accent); font-size: 0.85rem; letter-spacing: 1px;">Detailed Controls</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#if bookings.length}}
+                            {{#each bookings}}
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1); background-color: #141414; transition: background-color 0.3s; color: #ffffff;">
+                                <td class="px-4 py-4"><span style="color: #bbbbbb; font-weight: 500;">#{{addOne @index}}</span></td>
+                                
+                                <td class="px-4 py-4">
+                                    <h6 class="fw-bold mb-1 text-white" style="font-size: 1.1rem;">{{this.user.name}}</h6>
+                                    <p class="mb-0 small text-white-50"><i class="fas fa-phone me-1"></i> {{this.phone}}</p>
+                                </td>
+                                
+                                <td class="px-4 py-4 fw-bold text-white">{{this.car.carName}}</td>
+
+                                <td class="px-4 py-4">
+                                    <span class="badge rounded-pill px-3 py-2" style="background: rgba(212, 175, 55, 0.15); color: var(--gold-accent); border: 1px solid var(--gold-accent); font-size: 0.85rem;">
+                                        <i class="fas fa-circle me-1 small" style="font-size: 0.6rem;"></i> {{this.status}}
+                                    </span>
+                                </td>
+
+                                <td class="px-4 py-4 text-end">
+                                    <a href="/admin/booking/{{this._id}}" class="btn btn-sm btn-outline-light rounded-pill px-4 py-2 hover-gold-bg action-btn fw-bold">
+                                        Inspect File <i class="fas fa-arrow-right ms-2"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        {{else}}
+                            <tr>
+                                <td colspan="5" class="text-center py-5 text-white-50" style="background-color:#141414;">
+                                    <i class="fas fa-calendar-times fa-3x mb-3" style="color: rgba(212, 175, 55, 0.5);"></i>
+                                    <h5>No bookings found.</h5>
+                                </td>
+                            </tr>
+                        {{/if}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+/* Adjust hover and selection styling */
+.admin-dashboard .nav-link.hover-gold:hover {
+    color: var(--gold-accent) !important;
+    transform: translateY(-2px);
+}
+.admin-dashboard .nav-link {
+    transition: all 0.3s ease;
+}
+.premium-table tbody tr:hover {
+    background-color: rgba(212, 175, 55, 0.15) !important;
+}
+.action-btn {
+    transition: all 0.3s ease;
+}
+.hover-gold-bg:hover {
+    background-color: var(--gold-accent) !important;
+    color: #000 !important;
+    border-color: var(--gold-accent) !important;
+}
+
+/* Base resets for Bootstrap table backgrounds inside our glass component */
+.premium-table {
+    --bs-table-bg: transparent;
+    --bs-table-color: #ffffff;
+    --bs-table-hover-color: #ffffff;
+    --bs-table-hover-bg: rgba(212, 175, 55, 0.1);
+}
+.premium-table td, .premium-table th {
+    background-color: transparent !important;
+}
+</style>

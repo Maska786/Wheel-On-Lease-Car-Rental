@@ -32,20 +32,31 @@
             <form action="/booking/preview" method="POST" enctype="multipart/form-data" id="bookingForm" class="glass-card shadow-lg p-4 p-md-5">
                 <!-- Customer Info -->
                 <h4 class="mb-4 fw-bold" style="font-family: 'Outfit', sans-serif; color: var(--gold-accent);">Your Story Starts Here</h4>
+
+                {{#if user}}
+                <div class="mb-4 p-3 rounded-3 d-flex align-items-center gap-3" style="background: rgba(212,175,55,0.08); border: 1px solid rgba(212,175,55,0.3);">
+                    <i class="fas fa-user-circle fs-4" style="color: var(--gold-accent);"></i>
+                    <div>
+                        <p class="mb-0 fw-bold text-white" style="font-size:0.95rem;">Logged in as <span style="color:var(--gold-accent);">{{user.name}}</span></p>
+                        <p class="mb-0 text-white-50 small">{{user.email}}</p>
+                    </div>
+                </div>
+                {{/if}}
+
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="firstName" class="form-label form-label-premium">First Name</label>
-                        <input type="text" name="firstName" id="firstName" class="form-control form-control-premium" value="{{preFill.firstName}}" required>
+                        <input type="text" name="firstName" id="firstName" class="form-control form-control-premium" value="{{preFill.firstName}}" {{#if user}}readonly{{/if}} required>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="lastName" class="form-label form-label-premium">Last Name</label>
-                        <input type="text" name="lastName" id="lastName" class="form-control form-control-premium" value="{{preFill.lastName}}" required>
+                        <input type="text" name="lastName" id="lastName" class="form-control form-control-premium" value="{{preFill.lastName}}" {{#if user}}readonly{{/if}} required>
                     </div>
                 </div>
 
                 <div class="mb-3">
                     <label for="email" class="form-label form-label-premium">Email</label>
-                    <input type="email" name="email" id="email" class="form-control form-control-premium" value="{{preFill.email}}" required>
+                    <input type="email" name="email" id="email" class="form-control form-control-premium" value="{{preFill.email}}" {{#if user}}readonly{{/if}} required>
                 </div>
 
                 <!-- Full Country Dropdown -->
@@ -157,26 +168,47 @@
 
                 <!-- Delivery -->
                 <div id="deliverySection" class="d-none mt-3">
-                    <h5 class="mb-3 text-white">Delivery & Return Details</h5>
+                    <h5 class="mb-3 text-white">Delivery &amp; Return Details</h5>
                     <div class="glass-card p-4 card-body">
-                        <!-- Delivery -->
-                        <div class="mb-3">
-                            <label for="deliveryLocation" class="form-label form-label-premium">Delivery Location</label>
-                            <input type="text" name="deliveryLocation" id="deliveryLocation" class="form-control form-control-premium"
-                                placeholder="Enter delivery location">
+
+                        <!-- Delivery Location -->
+                        <div class="mb-4">
+                            <label class="form-label form-label-premium">
+                                <i class="bi bi-geo-alt me-1" style="color:var(--gold-accent)"></i>Delivery Location
+                            </label>
+                            <input type="hidden" name="deliveryLocation" id="deliveryLocation">
                             <input type="hidden" name="deliveryLat" id="deliveryLat">
                             <input type="hidden" name="deliveryLng" id="deliveryLng">
-                            <div id="deliveryMap" class="map-preview rounded-3 mt-2 border border-secondary" style="height: 200px;"></div>
+                            <br>
+                            <button type="button" class="mp-trigger-btn" id="pickDeliveryBtn">
+                                <i class="bi bi-map"></i> Pick on Map
+                            </button>
+                            <div class="mp-location-display" id="deliveryLocDisplay">
+                                <i class="bi bi-pin-map-fill"></i>
+                                <span class="mp-loc-text" id="deliveryLocText">No location chosen</span>
+                                <button type="button" class="mp-loc-clear" id="clearDeliveryLoc" title="Clear">&times;</button>
+                            </div>
                         </div>
-                        <!-- Return -->
-                        <div class="mb-3">
-                            <label for="dropLocation" class="form-label form-label-premium">Return Location</label>
-                            <input type="text" name="dropLocation" id="dropLocation" class="form-control form-control-premium"
-                                placeholder="Enter return location">
+
+                        <!-- Return Location -->
+                        <div class="mb-2">
+                            <label class="form-label form-label-premium">
+                                <i class="bi bi-geo me-1" style="color:var(--gold-accent)"></i>Return Location
+                            </label>
+                            <input type="hidden" name="dropLocation" id="dropLocation">
                             <input type="hidden" name="dropLat" id="dropLat">
                             <input type="hidden" name="dropLng" id="dropLng">
-                            <div id="dropMap" class="map-preview rounded-3 mt-2 border border-secondary" style="height: 200px;"></div>
+                            <br>
+                            <button type="button" class="mp-trigger-btn" id="pickDropBtn">
+                                <i class="bi bi-map"></i> Pick on Map
+                            </button>
+                            <div class="mp-location-display" id="dropLocDisplay">
+                                <i class="bi bi-pin-map-fill"></i>
+                                <span class="mp-loc-text" id="dropLocText">No location chosen</span>
+                                <button type="button" class="mp-loc-clear" id="clearDropLoc" title="Clear">&times;</button>
+                            </div>
                         </div>
+
                     </div>
                 </div>
 
@@ -206,5 +238,5 @@
     window.stripePublishableKey = "{{stripePublishableKey}}";
 </script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initAutocomplete" async defer></script>
+<script src="/js/map-picker.js"></script>
 <script src="/js/booking-calculator.js"></script>

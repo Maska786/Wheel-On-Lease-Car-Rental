@@ -203,6 +203,11 @@
 </div>
 
 <script>
+    // Injected by server: true if user is logged in
+    window.__isLoggedIn = {{#if user}}true{{else}}false{{/if}};
+</script>
+
+<script>
 document.addEventListener('DOMContentLoaded', function() {
     const modalEl = document.getElementById('rentModal');
     const leadPhoneInput = document.querySelector("#leadPhone");
@@ -227,8 +232,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // Modal triggers
     document.querySelectorAll('.rent-now-btn').forEach(btn => {
         btn.addEventListener('click', function() {
-            document.getElementById('modalCarName').textContent = this.getAttribute('data-car-name');
-            document.getElementById('modalCarId').value = this.getAttribute('data-car-id');
+            const carId = this.getAttribute('data-car-id');
+            const carName = this.getAttribute('data-car-name');
+
+            // If user is already logged in, skip modal and go directly to booking
+            if (window.__isLoggedIn) {
+                window.location.href = '/booking/' + carId;
+                return;
+            }
+
+            // Guest: show lead capture modal
+            document.getElementById('modalCarName').textContent = carName;
+            document.getElementById('modalCarId').value = carId;
             const bsModal = bootstrap.Modal.getOrCreateInstance(modalEl);
             bsModal.show();
         });
